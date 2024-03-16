@@ -1,0 +1,133 @@
+/*body*/
+/*{*/
+/*    width: 1980px;*/
+/*    border: 2px solid black;*/
+/*    margin: 0 auto;*/
+/*}*/
+
+a
+{
+    text-decoration: none;
+    text-decoration-color: inherit;
+    text-decoration-line: none; /* 하이퍼링크 밑줄 없애기 */
+}
+
+.gnbArea
+{
+    height: 35px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: darkred;
+}
+
+.gnbArea > ul
+{
+    margin: 0;
+    padding: 0;
+    list-style: none; /* ul태그의 리스트 속성 없애기 */
+}
+
+.gnbArea > ul > a
+{
+    margin: 5px;
+    padding: 0px;
+    float: right;
+    cursor: pointer;
+    font-family: 나눔고딕;
+    color: white;
+    font-weight: bold;
+}
+
+#loginUserName
+{
+    margin: 5px;
+    padding: 0px;
+    float: right;
+    font-family: 나눔고딕;
+    color: white;
+    font-weight: bold;
+}
+
+.gnbArea > ul > a:hover
+{
+    color: bisque;
+}
+
+.logoArea
+{
+    display: flex;
+    justify-content: flex-end; /* div 자식 요소 우측부터 정렬 */
+    align-items: center;
+}
+
+.logoArea > a
+{
+    margin-right: 10%;
+}
+
+.logoArea > a > span
+{
+    font-size: 50pt;
+    font-family: 나눔고딕 ExtraBold;
+    color: darkred;
+    cursor: pointer;
+}
+
+.logoArea > i
+{
+    font-size: 35px;
+    margin-left: 25px;
+    margin-right: 50px;
+    margin-top: 25px;
+    color: darkred;
+    cursor: pointer;
+}
+
+#searchInput
+{
+    border: 2px solid darkred;
+    margin-top: 25px;
+    padding-left: 15px;
+    width: 260px;
+    height: 40px;
+    font-size: 12pt;
+    font-weight: bold;
+    font-family: 나눔고딕;
+    margin-left: 480px;
+    outline: none; /* 클릭 시 테두리색 변경 없애기 */
+}
+
+.menuArea
+{
+    margin-top: 30px;
+    background-color: darkred;
+}
+
+.menuArea > ul
+{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    list-style: none; /* ul태그의 리스트 속성 없애기 */
+}
+
+.menuArea > ul > li
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 70px;
+    padding: 0;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 15pt;
+    font-family: 나눔고딕;
+    font-weight: bold;
+    color: aliceblue;
+}
+
+.menuArea > ul > li:hover
+{
+    color: bisque;
+}
+
+

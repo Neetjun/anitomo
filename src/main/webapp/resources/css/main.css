@@ -1,0 +1,166 @@
+#bannerImgArea
+{
+    width: 5000px;
+    height: 600px;
+    position: absolute;
+    background-color: green;
+
+}
+
+.bannerImgBox
+{
+    width: 1600px;
+    height: 500px;
+    margin-top: 1%;
+    margin-left: 17%;
+    position: relative;
+    background-color: darkred;
+    overflow: hidden;
+}
+
+#bannerImgArea > a
+{
+    float: left;
+}
+
+#bannerImgArea > a > img
+{
+    width: 1600px;
+    height: 500px;
+    object-fit: fill;
+}
+
+.bannerBtnArea
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bannerBtnArea > ul
+{
+    padding: 0px;
+    list-style: none;
+}
+
+.bannerBtnArea > ul > li
+{
+    float: left;
+    margin: 10px;
+}
+
+.bannerBtnArea > ul > li > button
+{
+    border-radius: 100%;
+    height: 15px;
+    border: none;
+    background-color: darkgray;
+    opacity: 0.5;
+}
+
+.bannerBtnArea > i
+{
+    color: darkred;
+    font-size: 17pt;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#bannerLeft
+{
+    margin-right: 15px;
+}
+
+#bannerRight
+{
+    margin-left: 15px;
+}
+
+.mainItemArea
+{
+    margin-top: 2%;
+}
+
+.listTitle
+{
+    padding-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-family: 나눔고딕;
+    font-size: 25pt;
+    cursor: default;
+}
+
+.listTitleLine
+{
+    margin: 0 auto;
+    width: 50px;
+    border-bottom: 2px solid darkred;
+    transition: width 0.5s; /* 길이 변경 등 이벤트 속도를 늦춤. 애니메이션처럼 변경. */
+}
+
+.listTitle:hover ~ .listTitleLine
+{
+    width: 160px;
+}
+
+.itemList
+{
+    margin-top: 40px;
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.item
+{
+    margin-left: 50px;
+    cursor: pointer;
+}
+
+.item:hover > .itemTitle
+{
+    color: darkred;
+}
+
+.item:hover > .priceLine
+{
+    width: 55px;
+}
+
+.thumbnail
+{
+    width: 200px;
+    height: 200px;
+    background-color: darkgray;
+    cursor: pointer;
+}
+
+.itemTitle
+{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 200px;
+    text-align: center;
+    font-family: 나눔고딕;
+    font-weight: bold;
+    font-size: 11pt;
+    word-break: break-all;
+}
+
+.priceLine
+{
+    margin: 0 auto;
+    width: 30px;
+    border-bottom: 2px solid darkred;
+    transition: width 0.5s; /* 길이 변경 등 이벤트 속도를 늦춤. 애니메이션처럼 변경. */
+}
+
+.itemPrice
+{
+    margin-top: 15px;
+    text-align: center;
+    font-family: 나눔고딕;
+    font-weight: bold;
+    font-size: 12pt;
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.anitomo.dao.userDAO">
+
+    <select id="countUser" resultType="int">
+        SELECT COUNT(USER_CODE)
+        FROM USERINFOES
+    </select>
+
+    <select id="checkId" resultType="int" parameterType="String">
+        SELECT COUNT(*)
+        FROM USERINFOES
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <insert id="registerUser" parameterType="userDTO" >
+        INSERT INTO USERINFOES (USER_CODE, USER_ID, USER_TYPE, USER_PW, USER_NAME, USER_TEL, USER_BIRTH, USER_STATUS)
+        VALUES (#{userCode}, #{userId}, ${userType}, #{userPw}, #{userName}, #{userTelResult}, TO_DATE(#{userBirth}, 'YYYY-MM-DD'), #{userStatus})
+    </insert>
+
+    <select id="login" parameterType="userDTO" resultType="userDTO">
+        SELECT USER_CODE AS userCode, USER_ID AS userId, USER_TYPE AS userType, USER_PW AS userPw
+             , USER_NAME AS userName, USER_TEL AS userTel, USER_BIRTH AS userBirth, USER_STATUS AS userStatus
+        FROM USERINFOES
+        WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
+    </select>
+
+</mapper>

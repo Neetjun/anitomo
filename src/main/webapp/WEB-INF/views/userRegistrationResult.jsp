@@ -1,0 +1,33 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<html>
+<head>
+    <title>회원가입</title>
+    <link rel="stylesheet" href="/resources/css/userRegistrationResult.css">
+</head>
+<body>
+    <c:import url="header.jsp" charEncoding="utf-8"></c:import>
+
+    <div class="resultFormArea">
+        <div class="menuTitle">
+            <i class="fa-solid fa-user"></i>
+            <span>회원가입</span>
+        </div>
+        <div class="resultMessageArea">
+            <span>회원가입이 완료되었습니다!</span>
+            <div class="resultBtnArea">
+                <button type="button">메인으로</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".resultBtnArea > button").click(function () {
+                    window.location.href = "/";
+            })
+        })
+    </script>
+
+</body>
+</html>
