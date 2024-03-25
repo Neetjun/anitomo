@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.anitomo.dao.CartDAO">
+
+    <select id="getCartList" parameterType="userDTO" resultType="cartDTO">
+        SELECT I.ITEM_CODE AS itemCode, I.ITEM_NAME AS itemName, I.ITEM_PRICE AS itemPrice, C.CART_QUANTITY AS cartQuantity
+        FROM CARTS C JOIN ITEMS I
+        ON C.ITEM_CODE = I.ITEM_CODE
+        WHERE USER_CODE = #{userCode} AND USER_ID = #{userId}
+    </select>
+
+    <select id="checkDuplication" resultType="int">
+
+    SELECT COUNT(*)
+    FROM CARTS
+    WHERE ITEM_CODE = #{itemCode} AND USER_CODE = #{userCode} AND USER_ID = #{userId}
+
+    </select>
+
+    <insert id="addCart" parameterType="cartDTO">
+        INSERT INTO CARTS (ITEM_CODE, USER_CODE, USER_ID, CART_QUANTITY)
+        VALUES (#{itemCode}, #{userCode}, #{userId}, ${cartQuantity})
+    </insert>
+
+    <update id="updateCart" parameterType="cartDTO">
+        UPDATE CARTS
+        SET CART_QUANTITY = ${cartQuantity}
+        WHERE ITEM_CODE = #{itemCode} AND USER_CODE = #{userCode} AND USER_ID = #{userId}
+    </update>
+
+    <delete id="deleteCart" parameterType="cartDTO">
+        DELETE
+        FROM CARTS
+        WHERE ITEM_CODE = #{itemCode} AND USER_CODE = #{userCode} AND USER_ID = #{userId}
+    </delete>
+
+</mapper>

@@ -1,9 +1,10 @@
-package com.anitomo.user;
+package com.anitomo.controller;
 
 import com.anitomo.dto.UserDTO;
 import com.anitomo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpSession;
 public class UserController
 {
     UserService userService;
-    UserDTO userDTO;
 
     public UserController(UserService userService)
     {
@@ -81,14 +81,16 @@ public class UserController
 
     // 로그인 폼
     @GetMapping("login")
-    public String login()
+    public String login(HttpServletRequest request, Model model)
     {
+        String referer = request.getHeader("referer");
+        model.addAttribute("referer", referer);
         return "loginForm";
     }
 
     // 로그인
     @PostMapping("login")
-    public String login(UserDTO userDTO, HttpSession session, RedirectAttributes ra)
+    public String login(UserDTO userDTO, HttpSession session, RedirectAttributes ra, String referer)
     {
         UserDTO loginUser = userService.login(userDTO);
 
@@ -100,7 +102,7 @@ public class UserController
         else
         {
             session.setAttribute("loginUser",loginUser);
-            return "redirect:/";
+            return "redirect:" + referer;
         }
     }
 
@@ -111,5 +113,22 @@ public class UserController
         session.invalidate();
         log.info("referer = {}",request.getHeader("referer"));
         return "redirect:"+request.getHeader("referer");
+    }
+    
+    // 마이페이지 초기화면
+    @GetMapping("mypage/orderlist")
+    public String showMyPage(HttpSession session, RedirectAttributes ra)
+    {
+        try
+        {
+            UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+        }
+        catch (NullPointerException e)
+        {
+            ra.addFlashAttribute("errorType", "loginRequired");
+            return "redirect:/";
+        }
+
+        return "myPage";
     }
 }

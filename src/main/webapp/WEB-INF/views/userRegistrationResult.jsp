@@ -2,16 +2,17 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <html>
 <head>
-    <title>회원가입</title>
+    <title>환영해요</title>
     <link rel="stylesheet" href="/resources/css/userRegistrationResult.css">
+    <link rel="icon" href="/resources/favicon.ico">
 </head>
 <body>
     <c:import url="header.jsp" charEncoding="utf-8"></c:import>
 
-    <div class="resultFormArea">
+    <div class="resultFormArea wrapper">
         <div class="menuTitle">
             <i class="fa-solid fa-user"></i>
-            <span>회원가입</span>
+            <span>주문/결제</span>
         </div>
         <div class="resultMessageArea">
             <span>회원가입이 완료되었습니다!</span>
@@ -20,6 +21,8 @@
             </div>
         </div>
     </div>
+
+    <c:import url="footer.jsp"></c:import>
 
     <script>
         $(document).ready(function () {

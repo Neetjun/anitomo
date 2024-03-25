@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- SQL Mapping -->
-<mapper namespace="com.anitomo.dao.userDAO">
+<mapper namespace="com.anitomo.dao.UserDAO">
 
     <select id="countUser" resultType="int">
         SELECT COUNT(USER_CODE)

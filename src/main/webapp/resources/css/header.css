@@ -1,21 +1,19 @@
-/*body*/
-/*{*/
-/*    width: 1980px;*/
-/*    border: 2px solid black;*/
-/*    margin: 0 auto;*/
-/*}*/
-
 a
 {
     text-decoration: none;
     text-decoration-color: inherit;
     text-decoration-line: none; /* 하이퍼링크 밑줄 없애기 */
+    user-select: none;
+}
+
+button, ul, li
+{
+    user-select: none;
 }
 
 .gnbArea
 {
     height: 35px;
-    margin-top: 10px;
     margin-bottom: 10px;
     background-color: darkred;
 }
@@ -73,7 +71,13 @@ a
     cursor: pointer;
 }
 
-.logoArea > i
+.logoArea > form
+{
+    display: flex;
+    align-items: center;
+}
+
+.logoArea > form >  i
 {
     font-size: 35px;
     margin-left: 25px;
@@ -122,7 +126,11 @@ a
     font-size: 15pt;
     font-family: 나눔고딕;
     font-weight: bold;
-    color: aliceblue;
+}
+
+.menuArea > ul > li > a
+{
+    color: white;
 }
 
 .menuArea > ul > li:hover

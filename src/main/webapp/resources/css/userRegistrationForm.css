@@ -7,17 +7,12 @@ button
     font-weight: bold;
     height: 25px;
     cursor: pointer;
-
     box-shadow: 2px 2px 2px darkgray;
-}
-
-button:hover
-{
-    color: bisque;
 }
 
 button:active
 {
+    color: bisque;
     box-shadow: none;
 }
 
@@ -111,7 +106,7 @@ button:active
     width: 120px;
 }
 
-form
+#registrationForm
 {
     margin-left: 20%;
     padding-bottom: 3%;

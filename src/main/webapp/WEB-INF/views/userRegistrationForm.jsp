@@ -5,11 +5,12 @@
     <title>회원가입</title>
     <link rel="stylesheet" href="/resources/css/userRegistrationForm.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="icon" href="/resources/favicon.ico">
 </head>
 <body>
     <c:import url="header.jsp" charEncoding="utf-8"></c:import>
 
-    <div class="registerFormArea">
+    <div class="registerFormArea wrapper">
         <div class="menuTitle">
             <i class="fa-solid fa-user"></i>
             <span>회원가입</span>
@@ -53,6 +54,8 @@
             </div>
         </form>
     </div>
+
+    <c:import url="footer.jsp"></c:import>
 
     <%-- 스크립트 영역 --%>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

@@ -11,11 +11,12 @@
 <head>
     <title>로그인</title>
   <link rel="stylesheet" href="/resources/css/loginForm.css">
+  <link rel="icon" href="/resources/favicon.ico">
 </head>
 <body>
   <c:import url="header.jsp"></c:import>
 
-  <div class="loginFormArea">
+  <div class="loginFormArea wrapper">
     <div class="menuTitle">
       <i class="fa-solid fa-user"></i>
       <span>로그인</span>
@@ -32,10 +33,13 @@
           <button type="button" id="loginBtn">로그인</button>
         </div>
       </div>
+      <input type="text" value="${referer}" name="referer" hidden="hidden">
     </form>
   </div>
 
   <input type="text" id="errInput" value="${errorType}" hidden="hidden">
+
+  <c:import url="footer.jsp"></c:import>
 
   <script>
     $(document).ready(function () {
@@ -47,7 +51,6 @@
         $("#loginBtn").click(function () {
           $("#loginForm").submit();
         });
-
     })
   </script>
 </body>

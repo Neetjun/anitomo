@@ -12,117 +12,53 @@
     <c:import url="header.jsp" charEncoding="utf-8"></c:import>
 
     <%-- 메인 페이지 영역 --%>
+    <div class="mainArea wrapper">
 
-    <%-- 배너 영역 --%>
-    <div class="bannerArea">
-        <div class="bannerImgBox">
-            <div id="bannerImgArea">
-                <a href="#">
-                    <img class="bannerImg" src="/resources/img/b1.png" alt="">
-                </a>
-                <a href="#">
-                    <img class="bannerImg" src="/resources/img/b2.png" alt="">
-                </a>
-                <a href="#">
-                    <img class="bannerImg" src="/resources/img/b3.png" alt="">
-                </a>
+        <%-- 배너 영역 --%>
+        <div class="bannerArea">
+            <div class="bannerImgBox">
+                <div id="bannerImgArea">
+                    <a href="#">
+                        <img class="bannerImg" src="/resources/img/b1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img class="bannerImg" src="/resources/img/b2.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img class="bannerImg" src="/resources/img/b3.png" alt="">
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="bannerBtnArea">
-            <i class="fa-solid fa-chevron-left bannerBtn" id="bannerLeft"></i>
-            <ul id="bannerIndexList">
-                <li><button style="background-color: darkred"></button></li>
-                <li><button></button></li>
-                <li><button></button></li>
-            </ul>
-            <i class="fa-solid fa-chevron-right bannerBtn" id="bannerRight"></i>
-        </div>
-    </div>
-
-    <%-- 상품 목록 영역 --%>
-    <div class="mainItemArea">
-        <div class="popularItemList">
-            <div class="listTitle">인기 상품</div>
-            <div class="listTitleLine"></div>
-            <div class="itemList">
-                <div class="item">
-                    <div class="thumbnail"></div>
-                    <div class="itemTitle">테스트용 제목입니다1. 신경쓰지 마시길. 그런데 피규어는 꽤 비싸요.</div>
-                    <div class="priceLine"></div>
-                    <div class="itemPrice">￦2,500</div>
-                </div>
-                <div class="item">
-                    <div class="thumbnail"></div>
-                    <div class="itemTitle">테스트용 제목입니다2. 신경쓰지 마시길. 그런데 피규어는 꽤 비싸요.</div>
-                    <div class="priceLine"></div>
-                    <div class="itemPrice">￦2,500</div>
-                </div>
-                <div class="item">
-                    <div class="thumbnail"></div>
-                    <div class="itemTitle">테스트용 제목입니다3. 신경쓰지 마시길. 그런데 피규어는 꽤 비싸요.</div>
-                    <div class="priceLine"></div>
-                    <div class="itemPrice">￦2,500</div>
-                </div>
-                <div class="item">
-                    <div class="thumbnail"></div>
-                    <div class="itemTitle">테스트용 제목입니다4. 신경쓰지 마시길. 그런데 피규어는 꽤 비싸요.</div>
-                    <div class="priceLine"></div>
-                    <div class="itemPrice">￦2,500</div>
-                </div>
-                <div class="item">
-                    <div class="thumbnail"></div>
-                    <div class="itemTitle">테스트용 제목입니다5. 신경쓰지 마시길. 그런데 피규어는 꽤 비싸요.</div>
-                    <div class="priceLine"></div>
-                    <div class="itemPrice">￦2,500</div>
-                </div>
+            <div class="bannerBtnArea">
+                <i class="fa-solid fa-chevron-left bannerBtn" id="bannerLeft"></i>
+                <ul id="bannerIndexList">
+                    <li><button style="background-color: darkred"></button></li>
+                    <li><button></button></li>
+                    <li><button></button></li>
+                </ul>
+                <i class="fa-solid fa-chevron-right bannerBtn" id="bannerRight"></i>
             </div>
         </div>
 
-        <div class="newItemList">
-            <div class="listTitle">신규 상품</div>
-            <div class="listTitleLine"></div>
-            <div class="itemList">
-                <div class="item">
-                    <div class="thumbnail"></div>
-                    <div class="itemTitle">테스트용 제목입니다1. 신경쓰지 마시길. 그런데 피규어는 꽤 비싸요.</div>
-                    <div class="priceLine"></div>
-                    <div class="itemPrice">￦2,500</div>
+        <%-- 상품 목록 영역 --%>
+        <div class="mainItemArea">
+            <div class="popularItemList">
+                <div class="listTitle">인기 상품</div>
+                <div class="listTitleLine"></div>
+                <div class="itemList">
                 </div>
-                <div class="item">
-                    <div class="thumbnail"></div>
-                    <div class="itemTitle">테스트용 제목입니다2. 신경쓰지 마시길. 그런데 피규어는 꽤 비싸요.</div>
-                    <div class="priceLine"></div>
-                    <div class="itemPrice">￦2,500</div>
-                </div>
-                <div class="item">
-                    <div class="thumbnail"></div>
-                    <div class="itemTitle">테스트용 제목입니다3. 신경쓰지 마시길. 그런데 피규어는 꽤 비싸요.</div>
-                    <div class="priceLine"></div>
-                    <div class="itemPrice">￦2,500</div>
-                </div>
-                <div class="item">
-                    <div class="thumbnail"></div>
-                    <div class="itemTitle">테스트용 제목입니다4. 신경쓰지 마시길. 그런데 피규어는 꽤 비싸요.</div>
-                    <div class="priceLine"></div>
-                    <div class="itemPrice">￦2,500</div>
-                </div>
-                <div class="item">
-                    <div class="thumbnail"></div>
-                    <div class="itemTitle">테스트용 제목입니다5. 신경쓰지 마시길. 그런데 피규어는 꽤 비싸요.</div>
-                    <div class="priceLine"></div>
-                    <div class="itemPrice">￦2,500</div>
-                </div>
-                <div class="item">
-                    <div class="thumbnail"></div>
-                    <div class="itemTitle">테스트용 제목입니다6. 신경쓰지 마시길. 그런데 피규어는 꽤 비싸요.</div>
-                    <div class="priceLine"></div>
-                    <div class="itemPrice">￦2,500</div>
+            </div>
+
+            <div class="newItemList">
+                <div class="listTitle">신규 상품</div>
+                <div class="listTitleLine"></div>
+                <div class="itemList">
                 </div>
             </div>
         </div>
     </div>
 
-    <input type="text" id="errInput" value="${errorType}" hidden="hidden">
+    <c:import url="footer.jsp"></c:import>
 
     <%-- 스크립트 영역 --%>
     <script>
@@ -191,18 +127,53 @@
             }
             itemMarginArrange();
 
-
-            // 각종 에러 알림
-            if($("#errInput").val() != "")
+            // 아이템 목록 불러오기 ajax
+            function showMainItemList()
             {
-                let errorType = $("#errInput").val();
+                $.ajax({
+                    url: "/item/mainlist"
+                    , type: "GET"
+                    , success: function (resultMap) {
+                        let newestList = resultMap.newestList;
+                        let popularList = resultMap.popularList;
+                        let newestListHtml = "";
+                        let popularListHtml = "";
 
-                if(errorType == "userRegistrationError")
-                {
-                    alert("회원가입에 실패했습니다. 다시 시도해주세요.");
-                    return;
-                }
+                        for (let i = 0; i < newestList.length; i++) {
+                            let newestItem = newestList[i];
+                            newestListHtml += "<div class='item' data-itemCode='" + newestItem.itemCode + "'>"
+                                + "<div class='thumbnail'></div>"
+                                + "<div class='itemTitle'>" + newestItem.itemName + "</div>"
+                                + "<div class='priceLine'></div>"
+                                + "<div class='itemPrice'>￦" + newestItem.itemPrice + "</div>"
+                                + "</div>";
+                        }
+
+                        for (let i = 0; i < popularList.length; i++) {
+                            let popularItem = popularList[i];
+                            popularListHtml += "<div class='item' data-itemcode='" + popularItem.itemCode + "'>"
+                                + "<div class='thumbnail'></div>"
+                                + "<div class='itemTitle'>" + popularItem.itemName + "</div>"
+                                + "<div class='priceLine'></div>"
+                                + "<div class='itemPrice'>￦" + popularItem.itemPrice + "</div>"
+                                + "</div>";
+                        }
+
+                        $(".popularItemList > .itemList").html(popularListHtml);
+                        $(".newItemList > .itemList").html(newestListHtml);
+                    }
+                    , error: function (response) {
+                        console.log(response.text);
+                    }
+                });
             }
+            showMainItemList();
+
+            // 상품 상세페이지 이동
+            $(document).on("click", ".item" ,function () {
+                let url = "/item/" + $(this).data("itemcode"); // 커스텀 속성 data-itemcode의 값을 가져옴
+                window.location.href = url;
+            });
         })
     </script>
 </body>

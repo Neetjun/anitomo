@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.anitomo.dao.InquiryDAO">
+
+    <insert id="postInquiry" parameterType="inquiryDTO">
+        INSERT INTO ITEM_INQUIRIES (INQUIRY_CODE, INQUIRY_TITLE, INQUIRY_CONTENT, INQUIRY_DATE, INQUIRY_ANSWER,
+                                    INQUIRY_ANSWER_DATE, INQUIRY_STATUS, USER_CODE, USER_ID, ITEM_CODE)
+        VALUES
+            (
+                'IQ' || (SELECT COUNT(*)+1 FROM ITEM_INQUIRIES)
+                , #{inquiryTitle}
+                , #{inquiryContent}
+                , SYSDATE
+                , '최대한 빠른 시일 내에 답변 드리겠습니다.'
+                , NULL
+                , '답변대기'
+                , #{inquiryUserCode}
+                , #{inquiryUserId}
+                , #{inquiryItemCode}
+            )
+    </insert>
+
+    <select id="showInquiryList" resultType="inquiryDTO">
+        SELECT IQ.INQUIRY_CODE AS inquiryCode, IQ.INQUIRY_TITLE AS inquiryTitle, IQ.INQUIRY_CONTENT AS inquiryContent, TO_CHAR(IQ.INQUIRY_DATE, 'YYYY-MM-DD') AS inquiryDate
+             , IQ.INQUIRY_ANSWER AS inquiryAnswer, IQ.INQUIRY_ANSWER_DATE AS inquiryAnswerDate, IQ.INQUIRY_STATUS AS inquiryStatus
+             , IQ.USER_CODE AS inquiryUserCode, IQ.USER_ID AS inquiryUserId, U.USER_NAME AS inquiryUserName
+        FROM ITEM_INQUIRIES IQ JOIN USERINFOES U
+        ON IQ.USER_CODE = U.USER_CODE
+        ORDER BY IQ.INQUIRY_DATE DESC
+    </select>
+
+</mapper>

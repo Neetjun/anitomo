@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public class UserDAO
 {
     private SqlSession session;
-    private String namespace = "com.anitomo.dao.userDAO.";
+    private String namespace = "com.anitomo.dao.UserDAO.";
 
     public UserDAO(SqlSession session)
     {

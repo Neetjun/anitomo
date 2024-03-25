@@ -6,5 +6,8 @@
     <typeAliases>
         <!--<typeAlias alias="사용할 이름" type="객체 경로"/>-->
         <typeAlias alias="userDTO" type="com.anitomo.dto.UserDTO"/>
+        <typeAlias alias="itemDTO" type="com.anitomo.dto.ItemDTO"/>
+        <typeAlias alias="cartDTO" type="com.anitomo.dto.CartDTO"/>
+        <typeAlias alias="inquiryDTO" type="com.anitomo.dto.InquiryDTO"/>
     </typeAliases>
 </configuration>

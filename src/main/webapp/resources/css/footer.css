@@ -1,0 +1,127 @@
+body, html
+{
+    margin : 0;
+    height: 100%;
+}
+
+i
+{
+    color: black;
+    font-size: 30pt;
+}
+
+.footerArea
+{
+    border-top: 2px solid darkred;
+    height: 130px;
+    width: 100%;
+    position : relative;
+    transform : translateY(-100%);
+    overflow: hidden;
+}
+
+.footerContentArea
+{
+    margin-left: 17%;
+    width: 1600px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.footerContentArea > div
+{
+    padding-top: 1%;
+}
+
+.companyInfoArea
+{
+    width: 20%;
+    height: 100%;
+    border-right: 2px solid darkred;
+}
+
+#companyName
+{
+    font-family: 나눔고딕;
+    font-size: 15pt;
+    font-weight: bold;
+    color: darkred;
+}
+
+#companyAddress, #companyTel
+{
+    margin-top: 10px;
+    font-family: 나눔고딕;
+    font-size: 10pt;
+    font-weight: bold;
+    color: darkgray;
+}
+
+.developerInfoArea
+{
+    width: 50%;
+    height: 100%;
+    border-right: 2px solid darkred;
+}
+
+.developerInfoArea
+{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.commentArea
+{
+    width: 35%;
+    padding-left: 2%;
+}
+
+#developerName
+{
+    margin-bottom: 2%;
+    font-family: 나눔고딕;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#comment
+{
+    font-family: 나눔고딕;
+    font-size: 10pt;
+}
+
+.developerLink
+{
+    display: flex;
+    justify-content: flex-start;
+    text-align: center;
+    font-family: 나눔고딕;
+}
+
+.developerLink > div
+{
+    margin-left: 50px;
+}
+
+.developerLink > div > div
+{
+    margin-top: 10px;
+    font-size: 10pt;
+    font-weight: bold;
+    color: darkgray;
+    cursor:default;
+}
+
+.tmpArea
+{
+    padding-top: 1%;
+    padding-left: 2%;
+}
+
+.wrapper
+{
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 130px;
+}

@@ -1,0 +1,244 @@
+button
+{
+    border: none;
+    color: white;
+    background-color: darkred;
+    font-family: 나눔고딕;
+    font-weight: bold;
+    height: 25px;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px darkgray;
+    border-radius: 5px;
+}
+
+button:active
+{
+    color: bisque;
+    box-shadow: none;
+}
+
+.itemListArea
+{
+    margin-left: 15%;
+    width: 50%;
+}
+
+.menuTitle
+{
+    margin-left: 20%;
+    margin-top: 5%;
+    width:60%;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    font-size: 17pt;
+    font-family: 나눔고딕;
+    font-weight: bold;
+}
+
+.itemList > .menuTitle
+{
+    margin-left: 0;
+    font-size: 15pt;
+    width: 100%;
+    border-bottom: 2px solid darkgray;
+}
+
+.sortBtnArea > button
+{
+    float: right;
+    margin-left: 5px;
+    background-color: darkgray;
+}
+
+.itemList
+{
+    margin-left: 20%;
+    padding-bottom: 3%;
+    padding-top: 2%;
+    width: 100%;
+    font-family: 나눔고딕;
+    font-size: 20pt;
+    font-weight: bold;
+    border-top: 2px solid darkred;
+    border-bottom: 2px solid darkred;
+}
+
+.searchArea
+{
+    margin-top: 5%;
+    margin-left: 10%;
+    font-size: 15pt;
+}
+
+.searchArea > form > div
+{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 25px;
+}
+
+.searchArea > form > div > div
+{
+    width: 80px;
+    margin-right: 20px;
+}
+
+.searchArea > form > div > input
+{
+    width: 200px;
+    height: 25px;
+    padding-left: 5px;
+    font-family: 나눔고딕;
+    font-weight: bold;
+}
+
+.searchArea > form > div > select
+{
+    width: 200px;
+    height: 25px;
+    padding-left: 5px;
+    font-family: 나눔고딕;
+    font-weight: bold;
+}
+
+.searchArea > form > div > button
+{
+    width: 200px;
+}
+
+.searchSuggest
+{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin-left: 100px;
+    padding-left: 10px;
+    padding-top: 10px;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+}
+
+.suggestList
+{
+    font-size: 11pt;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.suggestList:hover
+{
+    color: darkred;
+}
+
+.searchedItemList
+{
+    margin-top: 40px;
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* 자식요소 줄바꿈 처리 */
+}
+
+.item
+{
+    margin-left: 50px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.item:hover > .itemTitle
+{
+    color: darkred;
+}
+
+.item:hover > .priceLine
+{
+    width: 55px;
+}
+
+.thumbnail
+{
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    background-color: darkgray;
+    cursor: pointer;
+}
+
+.itemTitle
+{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 200px;
+    text-align: center;
+    font-family: 나눔고딕;
+    font-weight: bold;
+    font-size: 10pt;
+    word-break: break-all;
+}
+
+.priceLine
+{
+    margin: 0 auto;
+    width: 30px;
+    border-bottom: 2px solid darkred;
+    transition: width 0.5s; /* 길이 변경 등 이벤트 속도를 늦춤. 애니메이션처럼 변경. */
+}
+
+.itemPrice
+{
+    margin-top: 15px;
+    text-align: center;
+    font-family: 나눔고딕;
+    font-weight: bold;
+    font-size: 12pt;
+}
+
+.itemStatusArea
+{
+    margin-top: 15px;
+    text-align: center;
+    font-size: 9pt;
+}
+
+.itemStatusArea > span
+{
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+    padding: 2px;
+    user-select: none;
+}
+
+.pageArea
+{
+    display: flex;
+    justify-content: center;
+}
+
+.newItem
+{
+    color: red;
+}
+
+.onSale
+{
+    color: forestgreen;
+}
+
+.pageArea > a
+{
+    font-size: 12pt;
+    color: white;
+    background-color: darkred;
+    border-radius: 5px;
+    padding: 5px;
+    text-decoration: none;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.pageArea > a:hover
+{
+    color: bisque;
+}

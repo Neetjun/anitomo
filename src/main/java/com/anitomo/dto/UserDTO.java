@@ -9,6 +9,22 @@ public class UserDTO
     String userCode, userType, userId, userPw, userName, userBirth, userStatus, userTelResult;
     String[] userTel;
 
+
+    @Override
+    public String toString()
+    {
+        return "UserDTO{" +
+                "userCode='" + userCode + '\'' +
+                ", userType='" + userType + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userPw='" + userPw + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userBirth='" + userBirth + '\'' +
+                ", userStatus='" + userStatus + '\'' +
+                ", userTelResult='" + userTelResult + '\'' +
+                '}';
+    }
+
     public void userTelHandler()
     {
         userTelResult = "";

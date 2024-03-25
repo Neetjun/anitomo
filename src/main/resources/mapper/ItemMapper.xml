@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.anitomo.dao.ItemDAO">
+
+    <select id="mainNewestList" resultType="itemDTO">
+        SELECT *
+        FROM
+            (
+                SELECT ITEM_CODE AS itemCode, ITEM_NAME AS itemName, TO_CHAR(ITEM_PRICE, 'FM999,999,999,999') AS itemPrice
+                FROM ITEMS
+                ORDER BY ITEM_DATE DESC
+            )
+        WHERE ROWNUM BETWEEN 1 AND 6
+    </select>
+
+    <select id="mainPopularList" resultType="itemDTO">
+        SELECT *
+        FROM
+            (
+                SELECT ITEM_CODE AS itemCode, ITEM_NAME AS itemName, TO_CHAR(ITEM_PRICE, 'FM999,999,999,999') AS itemPrice
+                FROM ITEMS
+                ORDER BY ITEM_SALES_COUNT DESC
+            )
+        WHERE ROWNUM BETWEEN 1 AND 6
+    </select>
+
+    <select id="itemDetail" resultType="itemDTO" parameterType="String">
+        SELECT I.ITEM_CODE AS itemCode, I.ITEM_NAME AS itemName, I.ITEM_PRICE AS itemPrice, I.ITEM_SIZE AS itemSIze, I.ITEM_DESCRIPTION AS itemDescription
+             , I.ITEM_DATE AS itemDate, M.MAKER_NAME AS makerName, S.SERIES_NAME AS seriesName, IT.TYPE_NAME AS itemType
+        FROM ITEMS I JOIN MAKERS M
+                          ON I.MAKER_CODE = M.MAKER_CODE
+                     JOIN SERIESES S
+                          ON I.SERIES_CODE = S.SERIES_CODE
+                     JOIN ITEM_TYPES IT
+                          ON I.TYPE_CODE = IT.TYPE_CODE
+        WHERE ITEM_CODE = #{itemCode}
+    </select>
+
+</mapper>
