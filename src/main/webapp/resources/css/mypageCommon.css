@@ -1,0 +1,100 @@
+button
+{
+    border: none;
+    color: white;
+    background-color: darkred;
+    font-family: 나눔고딕;
+    font-weight: bold;
+    cursor: pointer;
+
+    box-shadow: 2px 2px 2px darkgray;
+}
+
+button:active
+{
+    color: bisque;
+    box-shadow: none;
+}
+
+label
+{
+    user-select: none;
+}
+
+.sidebarMenuArea
+{
+    position: absolute;
+    width: 150px;
+    color: black;
+    font-weight: bold;
+    border: 2px solid darkgray;
+}
+
+div.menuText
+{
+    height: 35px;
+    padding-top: 15px;
+    background-color: lightgrey;
+    text-align: center;
+    cursor: default;
+    user-select: none;
+    border-bottom: 2px solid darkgray;
+}
+
+.sidebarMenu
+{
+}
+
+.sidebarMenu > li
+{
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.sidebarMenu > li > a
+{
+    color: black;
+    text-decoration: none;
+}
+
+.sidebarMenu > li > a:hover
+{
+    color: darkred;
+}
+
+.mypageContentArea
+{
+    margin-top: 5%;
+    margin-left: 15%;
+    width: 70%;
+    height: 700px;
+}
+
+.menuTitle
+{
+    margin-left: 20%;
+    margin-top: 5%;
+    width:60%;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    font-size: 17pt;
+    font-family: 나눔고딕;
+    font-weight: bold;
+}
+
+.menuTitle > i
+{
+    font-size: 17pt;
+    margin-right: 10px;
+}
+
+.mypageContent
+{
+    margin-left: 20%;
+    padding-top: 1%;
+    width: 60%;
+    font-family: 나눔고딕;
+    font-weight: bold;
+    border-top: 2px solid darkred;
+    border-bottom: 2px solid darkred;
+}

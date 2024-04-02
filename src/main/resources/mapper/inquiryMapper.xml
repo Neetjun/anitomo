@@ -24,13 +24,20 @@
             )
     </insert>
 
-    <select id="showInquiryList" resultType="inquiryDTO">
+    <select id="showInquiryList" parameterType="String" resultType="inquiryDTO">
         SELECT IQ.INQUIRY_CODE AS inquiryCode, IQ.INQUIRY_TITLE AS inquiryTitle, IQ.INQUIRY_CONTENT AS inquiryContent, TO_CHAR(IQ.INQUIRY_DATE, 'YYYY-MM-DD') AS inquiryDate
              , IQ.INQUIRY_ANSWER AS inquiryAnswer, IQ.INQUIRY_ANSWER_DATE AS inquiryAnswerDate, IQ.INQUIRY_STATUS AS inquiryStatus
              , IQ.USER_CODE AS inquiryUserCode, IQ.USER_ID AS inquiryUserId, U.USER_NAME AS inquiryUserName
         FROM ITEM_INQUIRIES IQ JOIN USERINFOES U
         ON IQ.USER_CODE = U.USER_CODE
+        WHERE IQ.ITEM_CODE = #{itemCode}
         ORDER BY IQ.INQUIRY_DATE DESC
+    </select>
+
+    <select id="countInquiry" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM ITEM_INQUIRIES
+        WHERE ITEM_CODE = #{itemCode}
     </select>
 
 </mapper>

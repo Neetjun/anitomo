@@ -51,19 +51,13 @@ button, ul, li
     color: bisque;
 }
 
-.logoArea
+
+#logoText
 {
-    display: flex;
-    justify-content: flex-end; /* div 자식 요소 우측부터 정렬 */
-    align-items: center;
+    text-align: center;
 }
 
-.logoArea > a
-{
-    margin-right: 10%;
-}
-
-.logoArea > a > span
+#logoText > a > span
 {
     font-size: 50pt;
     font-family: 나눔고딕 ExtraBold;
@@ -74,10 +68,11 @@ button, ul, li
 .logoArea > form
 {
     display: flex;
+    justify-content: flex-end;
     align-items: center;
 }
 
-.logoArea > form >  i
+.searchIcon
 {
     font-size: 35px;
     margin-left: 25px;
@@ -97,7 +92,6 @@ button, ul, li
     font-size: 12pt;
     font-weight: bold;
     font-family: 나눔고딕;
-    margin-left: 480px;
     outline: none; /* 클릭 시 테두리색 변경 없애기 */
 }
 

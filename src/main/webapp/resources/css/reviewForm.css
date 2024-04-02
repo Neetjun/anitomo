@@ -1,0 +1,216 @@
+.reviewFormArea
+{
+    padding: 2px 5%;
+}
+
+.orderItem
+{
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.orderInfo
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.thumbnailArea
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.thumbnailBox
+{
+    width: 150px;
+    height: 150px;
+    background-color: darkgray;
+    overflow: hidden;
+}
+
+.thumbnail
+{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.itemInfo
+{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.thumbnailArea
+{
+    margin-right: 30px;
+}
+
+.itemNameAndPrice
+{
+    width: 100%;
+    font-size: 13pt;
+}
+
+.itemName
+{
+    margin-bottom: 2%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ratingStar
+{
+    user-select: none;
+}
+
+.star
+{
+    color: darkgray;
+    cursor: pointer;
+}
+
+.reviewInputArea
+{
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-top: 2px solid darkgray;
+}
+
+.reviewInputArea > div
+{
+    margin-top: 30px;
+    padding-bottom: 25px;
+    font-size: 15pt;
+    border-bottom: 2px solid darkgray;
+}
+
+.inputType
+{
+    margin-bottom: 10px;
+}
+
+#reviewTitleInput
+{
+    width: 100%;
+    height: 50px;
+    padding-left: 10px;
+    font-family: 나눔고딕;
+    font-size: 13pt;
+    font-weight: bold;
+    border: 1px solid darkgray;
+    outline: none;
+}
+
+#reviewContentInput
+{
+    width: 100%;
+    height: 20%;
+    padding-top: 10px;
+    padding-left: 10px;
+    outline: none;
+    font-family: 나눔고딕;
+    font-size: 11pt;
+    border: 1px solid darkgray;
+    resize: none;
+}
+
+#imageInputArea
+{
+    border-bottom: none;
+}
+
+.imageBtnArea
+{
+    margin-top: 15px;
+}
+
+#imageBtn
+{
+    border-radius: 5px;
+    width: 80px;
+    height: 25px;
+    margin-right: 15px;
+}
+
+.imagePreviewArea
+{
+    margin-top: 30px;
+    display: flex;
+}
+
+.imagePreviewBox
+{
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.uploadedImg
+{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.imageDeleteBtn
+{
+    height: 30px;
+    margin-left: 10px;
+    background-color: white;
+    color: darkred;
+    box-shadow: none;
+    font-size: 15pt;
+}
+
+.submitBtnArea
+{
+    text-align: center;
+}
+
+.reviewBtn
+{
+    width: 120px;
+    height: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border-radius: 5px;
+}
+
+.editBtnArea
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+#reviewUpdateBtn, #reviewDeleteBtn
+{
+    margin-left: 0px;
+}
+
+#cancelBtn
+{
+    background-color: darkgray;
+}
+
+#returnBtn
+{
+    background-color: darkgray;
+    margin-right: 0px;
+}
+
+#updateCancelBtn
+{
+    background-color: darkgray;
+}

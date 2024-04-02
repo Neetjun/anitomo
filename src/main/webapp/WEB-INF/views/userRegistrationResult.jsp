@@ -12,7 +12,7 @@
     <div class="resultFormArea wrapper">
         <div class="menuTitle">
             <i class="fa-solid fa-user"></i>
-            <span>주문/결제</span>
+            <span>회원가입</span>
         </div>
         <div class="resultMessageArea">
             <span>회원가입이 완료되었습니다!</span>

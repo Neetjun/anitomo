@@ -14,11 +14,9 @@
     </select>
 
     <select id="checkDuplication" resultType="int">
-
-    SELECT COUNT(*)
-    FROM CARTS
-    WHERE ITEM_CODE = #{itemCode} AND USER_CODE = #{userCode} AND USER_ID = #{userId}
-
+        SELECT COUNT(*)
+        FROM CARTS
+        WHERE ITEM_CODE = #{itemCode} AND USER_CODE = #{userCode} AND USER_ID = #{userId}
     </select>
 
     <insert id="addCart" parameterType="cartDTO">

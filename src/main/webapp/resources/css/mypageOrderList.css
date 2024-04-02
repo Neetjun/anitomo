@@ -1,0 +1,166 @@
+.noItem
+{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 17pt;
+}
+
+.orderDateText
+{
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 15pt;
+    background-color: darkred;
+    color: white;
+}
+
+.orderList
+{
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    padding: 20px 5%;
+}
+
+.orderListItem
+{
+    display: flex;
+    justify-content: left;
+    border: 2px solid darkgray;
+    margin-bottom: 15px;
+}
+
+.orderItemArea
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 70%;
+}
+
+.orderStatusText
+{
+    display: flex;
+    justify-content: space-between;
+    font-size: 15pt;
+    margin-bottom: 20px;
+    padding: 5px;
+    background-color: lightgrey;
+}
+
+.orderItem
+{
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.orderInfo
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.thumbnailArea
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.thumbnailBox
+{
+    width: 150px;
+    height: 150px;
+    background-color: darkgray;
+    overflow: hidden;
+}
+
+.thumbnail
+{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.itemInfo
+{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.thumbnailArea
+{
+    margin-right: 30px;
+}
+
+.itemNameAndPrice
+{
+    width: 100%;
+    font-size: 15pt;
+}
+
+.itemName
+{
+    margin-bottom: 5%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.itemPrice
+{
+    color: gray;
+    font-size: 11pt;
+    margin-bottom: 5%;
+}
+
+.orderQuantity
+{
+    font-size: 11pt;
+}
+
+.orderListBtnArea
+{
+    width: 30%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-left: 1px solid darkgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnBox > button
+{
+    display: block;
+    width: 150px;
+    height: 35px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.cancelOrderBtn
+{
+    background-color: gray;
+}
+
+.deleteOrderListBtn
+{
+    background-color: darkgray;
+}
+
+.imagePreview
+{
+    width: 100px;
+    height: 100px;
+}
+
+.tmpImage

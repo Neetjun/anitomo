@@ -12,20 +12,17 @@ public class InquiryDAO
 {
     private SqlSession session;
     private String namespace = "com.anitomo.dao.InquiryDAO.";
-
     public InquiryDAO(SqlSession session)
     {
         this.session = session;
     }
-
-
     public Integer postInquiry(InquiryDTO inquiryDTO)
     {
         return session.insert(namespace+"postInquiry", inquiryDTO);
     }
-
-    public List<InquiryDTO> showInquiryList()
+    public List<InquiryDTO> showInquiryList(String itemCode)
     {
-        return session.selectList(namespace+"showInquiryList");
+        return session.selectList(namespace+"showInquiryList", itemCode);
     }
+    public Integer countInquiry(String itemCode) {return session.selectOne(namespace+"countInquiry", itemCode);}
 }

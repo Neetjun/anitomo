@@ -4,15 +4,14 @@
     height: 600px;
     position: absolute;
     background-color: green;
-
 }
 
 .bannerImgBox
 {
+    margin-left: 50%;
+    margin-top: 1%;
     width: 1600px;
     height: 500px;
-    margin-top: 1%;
-    margin-left: 17%;
     position: relative;
     background-color: darkred;
     overflow: hidden;

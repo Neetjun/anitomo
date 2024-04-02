@@ -9,5 +9,8 @@
         <typeAlias alias="itemDTO" type="com.anitomo.dto.ItemDTO"/>
         <typeAlias alias="cartDTO" type="com.anitomo.dto.CartDTO"/>
         <typeAlias alias="inquiryDTO" type="com.anitomo.dto.InquiryDTO"/>
+        <typeAlias alias="addressDTO" type="com.anitomo.dto.AddressDTO"/>
+        <typeAlias alias="orderDTO" type="com.anitomo.dto.OrderDTO"/>
+        <typeAlias alias="reviewDTO" type="com.anitomo.dto.ReviewDTO"/>
     </typeAliases>
 </configuration>

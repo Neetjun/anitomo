@@ -33,7 +33,6 @@
           <button type="button" id="loginBtn">로그인</button>
         </div>
       </div>
-      <input type="text" value="${referer}" name="referer" hidden="hidden">
     </form>
   </div>
 

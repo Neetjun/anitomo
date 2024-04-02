@@ -25,10 +25,10 @@
       </ul>
     </div>
     <div class="logoArea">
-      <a href="/"><span>Anitomo!</span></a>
+      <div id="logoText"><a href="/"><span>Anitomo!</span></a></div>
       <form action="" method="get" id="mainSearchFrom">
         <input type="text" id="searchInput" name="keyword">
-        <i class="fa-solid fa-magnifying-glass" id="searchIcon"></i>
+        <i class="fa-solid fa-magnifying-glass searchIcon"></i>
       </form>
     </div>
     <div class="menuArea">

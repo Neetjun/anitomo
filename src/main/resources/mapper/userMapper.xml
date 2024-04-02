@@ -6,6 +6,20 @@
 <!-- SQL Mapping -->
 <mapper namespace="com.anitomo.dao.UserDAO">
 
+    <select id="showUserInfo" parameterType="userDTO" resultType="userDTO">
+        SELECT USER_CODE AS userCode, USER_ID AS userId, USER_TYPE AS userType, USER_PW AS userPw, USER_NAME AS userName
+             , USER_TEL AS userTel, USER_BIRTH AS userBirth, USER_STATUS AS userStatus
+        FROM USERINFOES
+        WHERE USER_CODE = #{userCode} AND USER_ID = #{userId}
+    </select>
+
+    <select id="login" parameterType="userDTO" resultType="userDTO">
+        SELECT USER_CODE AS userCode, USER_ID AS userId, USER_TYPE AS userType, USER_PW AS userPw
+             , USER_NAME AS userName, USER_TEL AS userTel, USER_BIRTH AS userBirth, USER_STATUS AS userStatus
+        FROM USERINFOES
+        WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
+    </select>
+
     <select id="countUser" resultType="int">
         SELECT COUNT(USER_CODE)
         FROM USERINFOES
@@ -17,16 +31,125 @@
         WHERE USER_ID = #{userId}
     </select>
 
+    <select id="getAddressList" parameterType="userDTO" resultType="addressDTO">
+        SELECT ADDRESS_CODE AS addressCode, RECIPIENT AS recipient, RECIPIENT_TEL AS recipientTel, DELIVERY_MESSAGE AS deliveryMessage
+             , DEFAULT_DELIVERY_ADDRESS AS defaultDeliveryAddress, ADDRESS AS address, USER_CODE AS userCode, USER_ID AS userId
+        FROM DELIVERY_ADDRESSES
+        WHERE USER_CODE = #{userCode} AND USER_ID = #{userId}
+        ORDER BY DEFAULT_DELIVERY_ADDRESS DESC
+    </select>
+
+    <select id="getAddress" parameterType="String" resultType="addressDTO">
+        SELECT ADDRESS_CODE AS addressCode, RECIPIENT AS recipient, RECIPIENT_TEL AS recipientTel, DELIVERY_MESSAGE AS deliveryMessage
+             , DEFAULT_DELIVERY_ADDRESS AS defaultDeliveryAddress, ADDRESS AS address, USER_CODE AS userCode, USER_ID AS userId
+        FROM DELIVERY_ADDRESSES
+        WHERE ADDRESS_CODE = #{addressCode}
+    </select>
+
+    <select id="getDefaultAddress" parameterType="userDTO" resultType="addressDTO">
+        SELECT ADDRESS_CODE AS addressCode, RECIPIENT AS recipient, RECIPIENT_TEL AS recipientTel, DELIVERY_MESSAGE AS deliveryMessage
+             , DEFAULT_DELIVERY_ADDRESS AS defaultDeliveryAddress, ADDRESS AS address, USER_CODE AS userCode, USER_ID AS userId
+        FROM DELIVERY_ADDRESSES
+        WHERE USER_CODE = #{userCode} AND USER_ID = #{userId} AND DEFAULT_DELIVERY_ADDRESS = 'Y'
+    </select>
+
+    <select id="getReview" parameterType="string" resultType="reviewDTO">
+        SELECT REVIEW_CODE AS reviewCode, REVIEW_TITLE AS reviewTitle, REVIEW_CONTENT AS reviewContent, TO_CHAR(REVIEW_DATE, 'YYYY-MM-DD') AS reviewDate
+             , USER_CODE AS userCode, USER_ID AS userId, ORDER_CODE AS orderCode
+        FROM REVIEWS
+        WHERE ORDER_CODE = #{orderCode}
+    </select>
+
+    <select id="getRate" parameterType="string" resultType="int">
+        SELECT ITEM_RATE
+        FROM ITEM_RATES
+        WHERE REVIEW_CODE = #{reviewCode}
+    </select>
+
+    <select id="getReviewCount" parameterType="orderDTO" resultType="int">
+        SELECT COUNT(*)
+        FROM REVIEWS
+        WHERE ORDER_CODE = #{orderCode} AND USER_CODE = #{userCode} AND USER_ID = #{userId}
+    </select>
+
+    <select id="getMyReviewCode" parameterType="reviewDTO" resultType="String">
+        SELECT MAX(REVIEW_CODE)
+        FROM REVIEWS
+        WHERE USER_CODE = #{userCode} AND USER_ID = #{userId}
+    </select>
+
+    <select id="getReviewImageList" parameterType="string" resultType="string">
+        SELECT IMAGE_URL
+        FROM REVIEW_IMAGES
+        WHERE REVIEW_CODE = #{reviewCode}
+    </select>
+
     <insert id="registerUser" parameterType="userDTO" >
         INSERT INTO USERINFOES (USER_CODE, USER_ID, USER_TYPE, USER_PW, USER_NAME, USER_TEL, USER_BIRTH, USER_STATUS)
-        VALUES (#{userCode}, #{userId}, ${userType}, #{userPw}, #{userName}, #{userTelResult}, TO_DATE(#{userBirth}, 'YYYY-MM-DD'), #{userStatus})
+        VALUES (#{userCode}, #{userId}, ${userType}, #{userPw}, #{userName}, #{userTel}, TO_DATE(#{userBirth}, 'YYYY-MM-DD'), #{userStatus})
     </insert>
 
-    <select id="login" parameterType="userDTO" resultType="userDTO">
-        SELECT USER_CODE AS userCode, USER_ID AS userId, USER_TYPE AS userType, USER_PW AS userPw
-             , USER_NAME AS userName, USER_TEL AS userTel, USER_BIRTH AS userBirth, USER_STATUS AS userStatus
-        FROM USERINFOES
-        WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
-    </select>
+    <insert id="addAddress" parameterType="addressDTO">
+        INSERT INTO DELIVERY_ADDRESSES (ADDRESS_CODE, RECIPIENT, RECIPIENT_TEL, DELIVERY_MESSAGE, DEFAULT_DELIVERY_ADDRESS,
+                                        ADDRESS, USER_CODE, USER_ID)
+        VALUES ('D' || (SELECT COUNT(*)+1 FROM DELIVERY_ADDRESSES), #{recipient}, #{recipientTel}, #{deliveryMessage}, #{defaultDeliveryAddress}, #{address}, #{userCode}, #{userId})
+    </insert>
+
+    <insert id="postReview" parameterType="reviewDTO">
+        INSERT INTO REVIEWS (REVIEW_CODE, REVIEW_TITLE, REVIEW_CONTENT, USER_CODE, USER_ID, ORDER_CODE)
+        VALUES ('R'||(SELECT COUNT(*)+1 FROM REVIEWS), #{reviewTitle}, #{reviewContent}, #{userCode}, #{userId}, #{orderCode})
+    </insert>
+
+    <insert id="postRate" parameterType="hashmap">
+        INSERT INTO ITEM_RATES
+        VALUES(#{reviewCode}, #{itemCode}, ${itemRate})
+    </insert>
+
+    <insert id="postReviewImage" parameterType="hashmap">
+        INSERT INTO REVIEW_IMAGES
+        VALUES (#{reviewCode}, #{imageUrl})
+    </insert>
+
+    <update id="updateAddress" parameterType="addressDTO">
+        UPDATE DELIVERY_ADDRESSES
+        SET RECIPIENT = #{recipient}, ADDRESS = #{address}, RECIPIENT_TEL = #{recipientTel}, DELIVERY_MESSAGE = #{deliveryMessage}, DEFAULT_DELIVERY_ADDRESS = #{defaultDeliveryAddress}
+        WHERE ADDRESS_CODE = #{addressCode}
+    </update>
+
+    <update id="unCheckDefaultAddress" parameterType="addressDTO">
+        UPDATE DELIVERY_ADDRESSES
+        SET DEFAULT_DELIVERY_ADDRESS = 'N'
+        WHERE USER_CODE = #{userCode} AND USER_ID = #{userId}
+    </update>
+
+    <update id="updateReview" parameterType="reviewDTO">
+        UPDATE REVIEWS
+        SET REVIEW_TITLE = #{reviewTitle}, REVIEW_CONTENT = #{reviewContent}
+        WHERE REVIEW_CODE = #{reviewCode}
+    </update>
+
+    <update id="updateRate" parameterType="hashmap">
+        UPDATE ITEM_RATES
+        SET ITEM_RATE = ${itemRate}
+        WHERE REVIEW_CODE = #{reviewCode} AND ITEM_CODE = #{itemCode}
+    </update>
+
+    <delete id="deleteAddress" parameterType="addressDTO">
+        DELETE
+        FROM DELIVERY_ADDRESSES
+        WHERE ADDRESS_CODE = #{addressCode}
+    </delete>
+
+    <delete id="deleteReviewImage" parameterType="hashmap">
+        DELETE
+        FROM REVIEW_IMAGES
+        WHERE REVIEW_CODE = #{reviewCode} AND INSTR(IMAGE_URL, #{fileName}) > 0
+    </delete>
+
+    <update id="deleteReview" parameterType="reviewDTO">
+        UPDATE REVIEWS
+        SET REVIEW_DELETE_YN = 'Y'
+        WHERE REVIEW_CODE = #{reviewCode}
+    </update>
 
 </mapper>

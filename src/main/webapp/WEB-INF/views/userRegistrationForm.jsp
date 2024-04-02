@@ -40,7 +40,7 @@
                 </div>
                 <div class="inputTel">
                     <div>전화번호</div>
-                    <input type="tel" name="userTel" placeholder="010"> - <input type="tel" name="userTel" placeholder="1111"> - <input type="tel" name="userTel" placeholder="2222">
+                    <input type="tel" name="userTelArr" placeholder="010"> - <input type="tel" name="userTelArr" placeholder="1111"> - <input type="tel" name="userTelArr" placeholder="2222">
                     <span id="telCheckResult">전화번호 형식이 알맞지 않습니다!</span>
                 </div>
                 <div class="inputBirth">

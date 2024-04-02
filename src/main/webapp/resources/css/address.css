@@ -1,0 +1,84 @@
+html, body
+{
+    width: 750px;
+    height: 600px;
+    margin: 0;
+}
+
+button
+{
+    width: 80px;
+    height: 25px;
+    border: none;
+    color: white;
+    background-color: darkred;
+    font-family: 나눔고딕;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px darkgray;
+}
+
+button:active
+{
+    box-shadow: none;
+}
+
+.addressListArea
+{
+    margin: 20px;
+    padding: 15px;
+    border: 2px solid darkgray;
+    font-family: 나눔고딕;
+}
+
+.addressList
+{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid darkgray;
+}
+
+.addressList > div
+{
+    margin-bottom: 5px;
+}
+
+.recipient
+{
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.recipient > i
+{
+    color: forestgreen;
+    margin-left: 5px;
+}
+
+.addressBtn
+{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.addressDeleteForm
+{
+    display: inline;
+}
+
+.addressAddBtn
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#addressAddBtn
+{
+    width: 300px;
+    height: 40px;
+}
+

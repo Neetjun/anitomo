@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -19,7 +18,7 @@ import java.util.List;
 public class CartController
 {
 
-    CartService cartService;
+    private CartService cartService;
 
     public CartController(CartService cartService)
     {

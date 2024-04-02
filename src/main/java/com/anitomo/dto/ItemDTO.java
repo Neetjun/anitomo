@@ -2,7 +2,7 @@ package com.anitomo.dto;
 
 public class ItemDTO
 {
-    String itemCode, itemName,itemPrice, itemSize,itemDescription, itemDate, makerName, seriesName, itemType;
+    String itemCode, itemName,itemPrice, itemSize, itemDescription, itemDate, makerName, seriesName, itemType;
 
     @Override
     public String toString()

@@ -66,7 +66,9 @@
         let bannerLength = 3; // 배너 갯수
         let bannerWidth = 1600; // 배너 노출 영역 넓이
         let interval = setInterval(function () {$("#bannerRight").click()}, 3000); // 배너 자동넘기기 인터벌
-
+        let bannerMargin = parseInt($(".bannerImgBox").css("marginLeft"))-800;
+        $(".bannerImgBox").css("marginLeft",bannerMargin);
+        console.log(bannerMargin);
         $(document).ready(function () {
             // 배너 좌우 버튼 클릭 시 배너 넘기기
             $(".bannerBtn").click(function () {

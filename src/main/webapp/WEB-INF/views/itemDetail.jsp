@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="/resources/css/itemDetail.css">
     <link rel="stylesheet" href="/resources/css/toastr.min.css"> <%-- 토스트 메시지 라이브러리 --%>
     <link rel="icon" href="/resources/favicon.ico">
-
 </head>
 <body>
     <c:import url="header.jsp"></c:import>
@@ -64,8 +63,12 @@
                 </div>
                 <div class="priceAndOrderArea">
                     <div class="totalPriceArea">
-                        <span>총구매금액</span>
+                        <span id="totalPriceText">총구매금액</span>
                         <span id="totalPrice">${item.itemPrice}</span>원
+                        <form action="/order" method="get" id="orderForm" hidden="hidden">
+                            <input type="text" id="orderQuantity" name="itemQuantityList">
+                            <input type="text" value="${item.itemCode}" name="itemCodeList">
+                        </form>
                     </div>
                     <button type="button" id="orderBtn">바로구매</button>
                     <button type="button" id="cartBtn">장바구니</button>
@@ -76,7 +79,7 @@
         <div class="itemDetailNav" id="detailNav">
             <a href="#detailNav" class="scrollNav"><span>상품상세</span></a>
             <a href="#reviewNav" class="scrollNav"><span>리뷰(2)</span></a>
-            <a href="#inquiryNav" class="scrollNav"><span>문의(2)</span></a>
+            <a href="#inquiryNav" class="scrollNav"><span class="inquiryCount"></span></a>
         </div>
 
         <div class="itemDetailContentArea">
@@ -87,7 +90,7 @@
         <div class="itemDetailNav" id="reviewNav">
             <a href="#detailNav" class="scrollNav"><span>상품상세</span></a>
             <a href="#reviewNav" class="scrollNav"><span>리뷰(2)</span></a>
-            <a href="#inquiryNav class="scrollNav><span>문의(2)</span></a>
+            <a href="#inquiryNav" class="scrollNav"><span class="inquiryCount"></span></a>
         </div>
 
         <div class="reviewArea">
@@ -122,7 +125,7 @@
         <div class="itemDetailNav" id="inquiryNav">
             <a href="#detailNav" class="scrollNav"><span>상품상세</span></a>
             <a href="#reviewNav" class="scrollNav"><span>리뷰(2)</span></a>
-            <a href="#inquiryNav" class="scrollNav"><span>문의(2)</span></a>
+            <a href="#inquiryNav" class="scrollNav"><span class="inquiryCount"></span></a>
         </div>
 
         <div class="inquiryArea">
@@ -136,20 +139,6 @@
                         <th>작성일</th>
                         <th>상태</th>
                     </tr>
-<%--                    <tr>--%>
-<%--                        <td>2</td>--%>
-<%--                        <td>품절된건가요??</td>--%>
-<%--                        <td>정대만</td>--%>
-<%--                        <td>2024-03-15</td>--%>
-<%--                        <td>답변완료</td>--%>
-<%--                    </tr>--%>
-<%--                    <tr>--%>
-<%--                        <td>1</td>--%>
-<%--                        <td>배송 얼마나 걸려요?</td>--%>
-<%--                        <td>김철수</td>--%>
-<%--                        <td>2024-02-26</td>--%>
-<%--                        <td>답변완료</td>--%>
-<%--                    </tr>--%>
                 </table>
             </div>
         </div>
@@ -164,7 +153,7 @@
             </div>
             <form action="/inquiry" id="inquiryForm" method="post">
                 <div class="modal-content">
-                    <input type="text" value="${item.itemCode}" name="inquiryItemCode" hidden="hidden">
+                    <input type="text" id="itemCode" value="${item.itemCode}" name="inquiryItemCode" hidden="hidden">
                     <div class="inquiryTitleInputArea">
                         <span>문의제목</span>
                         <input type="text" id="inquiryTitleInput" name="inquiryTitle">
@@ -253,9 +242,9 @@
 
             // 수량 직접입력 시 잘못된 값 입력 방지
             $("#currentQuantity").change(function () {
-                let regex = /^[1-9]*$/;
+                let regex = /^[0-9]*$/;
 
-                if(!regex.test($(this).val()))
+                if(!regex.test($(this).val()) || $(this).val() < 1)
                 {
                     alert("입력값이 올바르지 않습니다!");
                     $(this).val(1);
@@ -265,11 +254,13 @@
 
             });
 
-            // 주문 및 장바구니 버튼
+            // 바로구매 버튼
             $("#orderBtn").click(function () {
-                window.location.href = "/order";
+                $("#orderQuantity").val($("#currentQuantity").val());
+                $("#orderForm").submit();
             })
 
+            // 장바구니 메시지
             function cartMessage(resultMessage)
             {
                 // 토스트 메시지 속성값 정의
@@ -288,7 +279,7 @@
                 else
                     toastr.error("","장바구니 추가에 실패했습니다.\n다시 시도해주세요.");
             }
-            
+            // 장바구니 담기
             $("#cartBtn").click(function () {
                 let cartData =
                     {
@@ -317,14 +308,25 @@
             // 문의하기 목록 가져오기
             function showInquiryList() {
                 $.ajax({
-                    type: "GET"
-                    , url: "/inquiry"
-                    , success: function (inquiryList) {
+                    type: "POST"
+                    , url: "/inquiry/list"
+                    , contentType : "text/plain"
+                    , data : $("#itemCode").val()
+                    , success: function (inquiryMap) {
+                        let inquiryArr = inquiryMap.inquiryList;
+                        let inquiryCount = inquiryMap.inquiryCount;
+
+                        for(let i = 0; i < $(".inquiryCount").length; i++)
+                        {
+                            let inquiryCountText = "문의("+ inquiryCount +")";
+                            $(".inquiryCount").eq(i).text(inquiryCountText);
+                        }
+
                         let inquiryListHtml = "";
 
-                        for (let i = 0; i < inquiryList.length; i++)
+                        for (let i = 0; i < inquiryArr.length; i++)
                         {
-                            let inquiry = inquiryList[i];
+                            let inquiry = inquiryArr[i];
 
                             inquiryListHtml
                                 += "<tr class='inquiryInfo'>"
@@ -348,7 +350,7 @@
                         $(".inquiryHead").after(inquiryListHtml);
                     }
                     , error: function (response) {
-                        console.log(response);
+                        console.log(response.responseText);
                     }
                 })
             }

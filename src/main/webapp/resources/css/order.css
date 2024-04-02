@@ -19,8 +19,8 @@ button:active
 .orderFormArea
 {
     margin-top: 5%;
-    margin-left: 20%;
-    width: 1600px;
+    margin-left: 15%;
+    width: 70%;
     height: 700px;
 }
 
@@ -115,6 +115,10 @@ td
 {
     width: 3%;
 }
+#buyPrice
+{
+    width: 5%;
+}
 
 td > input[type='radio']
 {
@@ -141,9 +145,9 @@ td > label
 {
     display: none;
     padding-top: 15px;
-    padding-left: 15px;
+    padding-left: 5%;
     border: 2px solid lightgrey;
-    width: 600px;
+    width: 90%;
     height: 60px;
     margin-top: 30px;
     margin-bottom: 30px;

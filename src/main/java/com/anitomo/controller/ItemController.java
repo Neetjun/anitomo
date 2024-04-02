@@ -15,7 +15,7 @@ import java.util.HashMap;
 @RequestMapping("/item")
 public class ItemController
 {
-    ItemService itemService;
+    private ItemService itemService;
 
     public ItemController(ItemService itemService)
     {

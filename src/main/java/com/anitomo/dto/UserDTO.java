@@ -6,9 +6,8 @@ import java.util.Arrays;
 
 public class UserDTO
 {
-    String userCode, userType, userId, userPw, userName, userBirth, userStatus, userTelResult;
-    String[] userTel;
-
+    String userCode, userType, userId, userPw, userName, userBirth, userStatus, userTel;
+    String[] userTelArr;
 
     @Override
     public String toString()
@@ -21,19 +20,9 @@ public class UserDTO
                 ", userName='" + userName + '\'' +
                 ", userBirth='" + userBirth + '\'' +
                 ", userStatus='" + userStatus + '\'' +
-                ", userTelResult='" + userTelResult + '\'' +
+                ", userTel='" + userTel + '\'' +
+                ", userTelArr=" + Arrays.toString(userTelArr) +
                 '}';
-    }
-
-    public void userTelHandler()
-    {
-        userTelResult = "";
-        for (int i = 0; i < userTel.length; i++)
-        {
-            userTelResult += userTel[i];
-            if(i < 2)
-                userTelResult += "-";
-        }
     }
 
     public String getUserCode()
@@ -106,23 +95,23 @@ public class UserDTO
         this.userStatus = userStatus;
     }
 
-    public String getUserTelResult()
-    {
-        return userTelResult;
-    }
-
-    public void setUserTelResult(String userTelResult)
-    {
-        this.userTelResult = userTelResult;
-    }
-
-    public String[] getUserTel()
+    public String getUserTel()
     {
         return userTel;
     }
 
-    public void setUserTel(String[] userTel)
+    public void setUserTel(String userTel)
     {
         this.userTel = userTel;
+    }
+
+    public String[] getUserTelArr()
+    {
+        return userTelArr;
+    }
+
+    public void setUserTelArr(String[] userTelArr)
+    {
+        this.userTelArr = userTelArr;
     }
 }

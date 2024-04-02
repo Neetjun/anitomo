@@ -18,20 +18,4 @@ public class HomeController
     {
         return "main";
     }
-
-    @GetMapping("uploadtest")
-    public String uploadTest()
-    {
-        return "fileUpload";
-    }
-
-    @PostMapping("uploadtest")
-    public String uploadTest(List<MultipartFile> fileList)
-    {
-        FileUploadHandler fileUploadHandler = new FileUploadHandler();
-
-        fileUploadHandler.fileUpload(fileList);
-
-        return "uploadResult";
-    }
 }

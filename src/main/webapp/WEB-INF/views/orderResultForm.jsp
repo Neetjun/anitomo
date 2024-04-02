@@ -30,7 +30,7 @@
             if($(this).attr("id") == "toMainBtn")
                 window.location.href = "/";
             else
-                window.location.href = "/mypage/orderlist";
+                window.location.href = "/user/mypage/orderlist";
         })
     })
 </script>

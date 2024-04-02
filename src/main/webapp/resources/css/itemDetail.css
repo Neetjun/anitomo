@@ -120,6 +120,11 @@ a
     margin-bottom: 30px;
 }
 
+#totalPriceText
+{
+    width: 130px;
+}
+
 #totalPrice
 {
     text-align: right;

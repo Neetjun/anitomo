@@ -6,14 +6,12 @@ import com.anitomo.dto.UserDTO;
 import com.anitomo.service.InquiryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -21,21 +19,25 @@ import java.util.List;
 @RequestMapping("inquiry")
 public class InquiryController
 {
-
-    InquiryService inquiryService;
+    private InquiryService inquiryService;
 
     public InquiryController(InquiryService inquiryService)
     {
         this.inquiryService = inquiryService;
     }
 
-    @GetMapping
+    @PostMapping("list")
     @ResponseBody
-    public List<InquiryDTO> showInquiryList()
+    public HashMap<String, Object> getInquiryMap(@RequestBody String itemCode)
     {
-        List<InquiryDTO> inquiryList = inquiryService.showInquiryList();
+        HashMap<String,Object> inquiryMap = new HashMap<String, Object>();
+        List<InquiryDTO> inquiryList = inquiryService.showInquiryList(itemCode);
+        Integer inquiryCount = inquiryService.countInquiry(itemCode);
 
-        return inquiryList;
+        inquiryMap.put("inquiryList", inquiryList);
+        inquiryMap.put("inquiryCount", inquiryCount);
+
+        return inquiryMap;
     }
 
     @PostMapping

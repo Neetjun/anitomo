@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL Mapping -->
+<mapper namespace="com.anitomo.dao.OrderDAO">
+
+    <select id="getMyOrderCode" parameterType="orderDTO" resultType="String">
+        SELECT MAX(ORDER_CODE)
+        FROM ORDERS
+        WHERE USER_CODE = #{userCode} AND USER_ID = #{userId}
+    </select>
+
+    <select id="getOrderList" parameterType="userDTO" resultType="orderDTO">
+        SELECT O.ORDER_CODE AS orderCode, TO_CHAR(O.ORDER_DATE,'YYYY-MM-DD') AS orderDate, O.USER_CODE AS userCode, O.USER_ID AS userId
+             , O.ADDRESS_CODE AS addressCode, O.ORDER_STATUS_CODE AS orderStatusCode, OS.ORDER_STATUS AS orderStatus
+        FROM ORDERS O
+        JOIN ORDER_STATUSES OS
+          ON O.ORDER_STATUS_CODE = OS.ORDER_STATUS_CODE
+        WHERE USER_CODE = #{loginUser.userCode} AND USER_ID = #{loginUser.userId} AND ORDER_DELETE_YN != 'Y'
+        <if test='page != null and(page eq "reviewlist".toString())'>
+            AND O.ORDER_STATUS_CODE BETWEEN 'OS1' AND 'OS6'
+            AND ORDER_CODE NOT IN
+            (
+                SELECT ORDER_CODE
+                FROM REVIEWS R
+                WHERE O.ORDER_CODE = R.ORDER_CODE
+                AND R.REVIEW_DELETE_YN = 'Y'
+            )
+        </if>
+        ORDER BY O.ORDER_DATE DESC
+    </select>
+
+    <select id="getOrderDateList" parameterType="userDTO">
+        SELECT DISTINCT TO_CHAR(ORDER_DATE,'YYYY-MM-DD') AS orderDate
+        FROM ORDERS O
+        WHERE USER_CODE = #{loginUser.userCode} AND USER_ID = #{loginUser.userId} AND ORDER_DELETE_YN != 'Y'
+        <if test='page != null and(page eq "reviewlist".toString())'>
+            AND ORDER_STATUS_CODE BETWEEN 'OS1' AND 'OS6'
+            AND ORDER_CODE NOT IN
+            (
+                SELECT ORDER_CODE
+                FROM REVIEWS R
+                WHERE O.ORDER_CODE = R.ORDER_CODE
+                AND R.REVIEW_DELETE_YN = 'Y'
+            )
+        </if>
+        ORDER BY ORDERDATE DESC
+    </select>
+
+    <select id="getOrderDetailList" parameterType="string" resultType="orderDTO">
+        SELECT ORDER_CODE AS orderCode, ITEM_CODE AS itemCode, ITEM_NAME AS itemName, ITEM_PRICE AS itemPrice, ORDER_QUANTITY AS orderQuantity
+        FROM ORDER_DETAIL O
+        <choose>
+            <when test='page != null and(page eq "review".toString())'>
+                WHERE ORDER_CODE = #{orderCode}
+            </when>
+            <otherwise>
+                WHERE ORDER_CODE = #{order.orderCode}
+            </otherwise>
+        </choose>
+        <if test='page != null and(page eq "reviewlist".toString() || page eq "review".toString())'>
+            AND ORDER_CODE NOT IN
+            (
+                SELECT ORDER_CODE
+                FROM REVIEWS R
+                WHERE O.ORDER_CODE = R.ORDER_CODE
+                AND R.REVIEW_DELETE_YN = 'Y'
+            )
+        </if>
+    </select>
+
+    <insert id="makeOrder" parameterType="orderDTO">
+        INSERT INTO ORDERS (ORDER_CODE, ORDER_STATUS_CODE, ORDER_DATE, USER_CODE, USER_ID, ADDRESS_CODE)
+        VALUES ('O'||(SELECT COUNT(*)+1 FROM ORDERS), #{orderStatusCode}, SYSDATE, #{userCode}, #{userId}, #{addressCode})
+    </insert>
+
+    <insert id="makeOrderDetail" parameterType="orderDTO">
+        INSERT INTO ORDER_DETAIL (ORDER_CODE, ITEM_CODE, ORDER_QUANTITY, ITEM_PRICE, ITEM_NAME)
+        VALUES (#{orderCode}, #{itemCode}, #{orderQuantity}, #{itemPrice}, #{itemName})
+    </insert>
+
+    <update id="updateOrder" parameterType="hashmap">
+        UPDATE ORDERS
+        SET ORDER_STATUS_CODE = #{orderStatusCode}
+        WHERE ORDER_CODE = #{orderCode}
+    </update>
+
+    <update id="deleteOrder" parameterType="String">
+        UPDATE ORDERS
+        SET ORDER_DELETE_YN = 'Y'
+        WHERE ORDER_CODE = #{orderCode}
+    </update>
+
+</mapper>
