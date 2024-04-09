@@ -2,7 +2,7 @@ package com.anitomo.dto;
 
 public class ItemDTO
 {
-    String itemCode, itemName,itemPrice, itemSize, itemDescription, itemDate, makerName, seriesName, itemType;
+    String itemCode, itemName,itemPrice, itemSize, itemDescription, itemDate, makerName, seriesName, itemType, makerCode, seriesCode, itemTypeCode;
 
     @Override
     public String toString()
@@ -17,6 +17,9 @@ public class ItemDTO
                 ", makerName='" + makerName + '\'' +
                 ", seriesName='" + seriesName + '\'' +
                 ", itemType='" + itemType + '\'' +
+                ", makerCode='" + makerCode + '\'' +
+                ", seriesCode='" + seriesCode + '\'' +
+                ", itemTypeCode='" + itemTypeCode + '\'' +
                 '}';
     }
 
@@ -108,5 +111,35 @@ public class ItemDTO
     public void setItemType(String itemType)
     {
         this.itemType = itemType;
+    }
+
+    public String getMakerCode()
+    {
+        return makerCode;
+    }
+
+    public void setMakerCode(String makerCode)
+    {
+        this.makerCode = makerCode;
+    }
+
+    public String getSeriesCode()
+    {
+        return seriesCode;
+    }
+
+    public void setSeriesCode(String seriesCode)
+    {
+        this.seriesCode = seriesCode;
+    }
+
+    public String getItemTypeCode()
+    {
+        return itemTypeCode;
+    }
+
+    public void setItemTypeCode(String itemTypeCode)
+    {
+        this.itemTypeCode = itemTypeCode;
     }
 }

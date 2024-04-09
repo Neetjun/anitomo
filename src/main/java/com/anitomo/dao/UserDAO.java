@@ -130,4 +130,14 @@ public class UserDAO
     {
         session.delete(namespace+"deleteReviewImage",imageMap);
     }
+
+    public List<ReviewDTO> getItemReviewList(String itemCode)
+    {
+        return session.selectList(namespace+"getItemReviewList",itemCode);
+    }
+
+    public Integer getItemReviewCount(String itemCode)
+    {
+        return session.selectOne(namespace+"getItemReviewCount",itemCode);
+    }
 }

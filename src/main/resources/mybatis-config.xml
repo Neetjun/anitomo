@@ -12,5 +12,9 @@
         <typeAlias alias="addressDTO" type="com.anitomo.dto.AddressDTO"/>
         <typeAlias alias="orderDTO" type="com.anitomo.dto.OrderDTO"/>
         <typeAlias alias="reviewDTO" type="com.anitomo.dto.ReviewDTO"/>
+        <typeAlias alias="makerDTO" type="com.anitomo.dto.MakerDTO"/>
+        <typeAlias alias="seriesDTO" type="com.anitomo.dto.SeriesDTO"/>
+        <typeAlias alias="itemTypeDTO" type="com.anitomo.dto.ItemTypeDTO"/>
+        <typeAlias alias="imageDTo" type="com.anitomo.dto.ImageDTO"/>
     </typeAliases>
 </configuration>

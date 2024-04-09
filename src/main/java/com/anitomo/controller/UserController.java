@@ -231,7 +231,7 @@ public class UserController
     }
 
     // 리뷰 폼
-    @GetMapping("/review/{orderCode}")
+    @GetMapping("review/{orderCode}")
     public String showReview(@PathVariable String orderCode, Model model)
     {
         ReviewDTO reviewDTO = userService.getReview(orderCode);

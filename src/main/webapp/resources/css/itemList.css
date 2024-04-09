@@ -72,15 +72,7 @@ button:active
 
 .searchArea > form > div
 {
-    display: flex;
-    justify-content: flex-start;
     margin-bottom: 25px;
-}
-
-.searchArea > form > div > div
-{
-    width: 80px;
-    margin-right: 20px;
 }
 
 .searchArea > form > div > input
@@ -90,6 +82,7 @@ button:active
     padding-left: 5px;
     font-family: 나눔고딕;
     font-weight: bold;
+    margin-top: 15px;
 }
 
 .searchArea > form > div > select
@@ -108,21 +101,19 @@ button:active
 
 .searchSuggest
 {
-    display: flex;
-    flex-direction: column;
     width: 500px;
-    margin-left: 100px;
-    padding-left: 10px;
-    padding-top: 10px;
+    padding: 10px;
     border: 1px solid darkgray;
     border-radius: 5px;
 }
 
 .suggestList
 {
+    width: 100%;
     font-size: 11pt;
     margin-bottom: 5px;
     cursor: pointer;
+    display: none;
 }
 
 .suggestList:hover
@@ -161,8 +152,15 @@ button:active
     margin: 0 auto;
     width: 150px;
     height: 150px;
-    background-color: darkgray;
     cursor: pointer;
+    overflow: hidden;
+}
+
+.thumbnailImg
+{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }
 
 .itemTitle
@@ -226,19 +224,18 @@ button:active
     color: forestgreen;
 }
 
-.pageArea > a
+.pageArea > button
 {
     font-size: 12pt;
     color: white;
-    background-color: darkred;
+    background-color: darkgray;
     border-radius: 5px;
-    padding: 5px;
     text-decoration: none;
     margin-left: 5px;
     margin-right: 5px;
 }
 
-.pageArea > a:hover
+.pageArea > button:hover
 {
     color: bisque;
 }

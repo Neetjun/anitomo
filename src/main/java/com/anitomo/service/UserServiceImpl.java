@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService
 
         // 3. 전화번호 검사 재수행
         // 회원 전화번호 처리
-        telHandler.combineTel(userDTO.getUserTelArr());
+        userDTO.setUserTel(telHandler.combineTel(userDTO.getUserTelArr()));
         String telRegex = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$";
         if(!Pattern.matches(telRegex, userDTO.getUserTel()))
         {
@@ -79,10 +79,6 @@ public class UserServiceImpl implements UserService
         }
 
         // 모든 테스트 통과했으면 회원가입 로직 수행
-
-        // 회원 코드 생성 및 부여
-        String userCode = "U"+(userDAO.countUser()+1);
-        userDTO.setUserCode(userCode);
 
         // 회원 타입코드 부여 (0 = 일반회원, 1 = 관리자)
         userDTO.setUserType("0");
@@ -248,52 +244,42 @@ public class UserServiceImpl implements UserService
             return "fail";
 
         // 2. 리뷰 코드를 얻어와서 평점 정보 등록
-        String reviewCode = userDAO.getMyReviewCode(reviewDTO);
+        reviewDTO.setReviewCode(userDAO.getMyReviewCode(reviewDTO));
         Float[] rateArr = reviewDTO.getRateArr();
         String[] itemCodeArr = reviewDTO.getItemCodeArr();
-        ratingMap.put("reviewCode", reviewCode);
+        ratingMap.put("reviewCode", reviewDTO.getReviewCode());
         
-        // 회원이 평점을 선택하지 않았으면 생략
-        if(rateArr != null && itemCodeArr != null)
-        {
-            for (int i = 0; i < itemCodeArr.length; i++)
-            {
-                String itemCode = itemCodeArr[i];
-                Float rate = rateArr[i];
-                ratingMap.put("itemCode", itemCode);
-                ratingMap.put("itemRate",rate);
+//        // 회원이 평점을 선택하지 않았으면 생략
+//        if(rateArr != null && itemCodeArr != null)
+//        {
+//            for (int i = 0; i < itemCodeArr.length; i++)
+//            {
+//                String itemCode = itemCodeArr[i];
+//                Float rate = rateArr[i];
+//                ratingMap.put("itemCode", itemCode);
+//                ratingMap.put("itemRate",rate);
+//
+//                result = userDAO.postRate(ratingMap);
+//
+//                if (result < 1)
+//                    return "fail";
+//
+//                log.info("평점등록 통과");
+//            }
+//        }
 
-                result = userDAO.postRate(ratingMap);
+        String resultMessage = ratingItem(ratingMap, rateArr, itemCodeArr, "post");
 
-                if (result < 1)
-                    return "fail";
-
-                log.info("평점등록 통과");
-            }
-        }
+        if(resultMessage.equals("fail"))
+            return resultMessage;
 
         // 3. 평점까지 등록 완료했으면 이미지 업로드
-        FileUploadHandler fileUploadHandler = new FileUploadHandler();
-
-        for (MultipartFile multipartFile : fileArr)
-        {
-            String url = "/img/reviews/"+reviewDTO.getOrderCode()+"/"+multipartFile.getOriginalFilename();
-            HashMap<String,String> imageMap = new HashMap<String,String>();
-
-            imageMap.put("reviewCode",reviewCode);
-            imageMap.put("imageUrl",url);
-
-            result = userDAO.postReviewImage(imageMap);
-
-            if(result < 1)
-                return "fail";
-        }
-
-        fileUploadHandler.fileUpload(fileArr, "review", reviewDTO.getOrderCode());
+        HashMap<String,String> imageMap = new HashMap<String,String>();
+        resultMessage = uploadFiles(reviewDTO, fileArr, imageMap);
 
         log.info("이미지 등록 통과");
 
-        return "success";
+        return resultMessage;
     }
 
     @Override
@@ -318,69 +304,114 @@ public class UserServiceImpl implements UserService
     @Transactional
     public String updateReview(ReviewDTO reviewDTO, MultipartFile[] fileArr, String[] deleteFileArr)
     {
-        Integer result;
         HashMap<String,Object> ratingMap = new HashMap<String,Object>();
 
         // 1. 리뷰 업데이트
         userDAO.updateReview(reviewDTO);
 
-        log.info("리뷰 업데이트 통과");
-
         // 2. 평점 업데이트
-        log.info(reviewDTO.toString());
         String reviewCode = reviewDTO.getReviewCode();
-
         Float[] rateArr = reviewDTO.getRateArr();
         String[] itemCodeArr = reviewDTO.getItemCodeArr();
         ratingMap.put("reviewCode", reviewCode);
 
-        if(rateArr != null && itemCodeArr != null)
-        {
-            for (int i = 0; i < itemCodeArr.length; i++)
-            {
-                log.info("if문 통과");
-                String itemCode = itemCodeArr[i];
-                Float rate = rateArr[i];
-                ratingMap.put("itemCode", itemCode);
-                ratingMap.put("itemRate",rate);
+        String resultMessage = ratingItem(ratingMap, rateArr, itemCodeArr, "update");
 
-                result = userDAO.updateRate(ratingMap);
-
-                if (result < 1)
-                    return "fail";
-
-                log.info("평점등록 통과");
-            }
-        }
-
-        log.info("try문 통과");
+        if(resultMessage.equals("fail"))
+            return resultMessage;
 
         // 3. 삭제된 기존 이미지 파일 체크 및 신규 이미지 파일 추가
         FileUploadHandler fileUploadHandler = new FileUploadHandler();
-        String url = "";
         HashMap<String,String> imageMap = new HashMap<String,String>();
         imageMap.put("reviewCode", reviewCode);
 
         // 삭제된 파일 서버에서 삭제
         if(deleteFileArr != null)
+        {
             for (String fileName : deleteFileArr)
             {
                 imageMap.put("fileName",fileName);
                 userDAO.deleteReviewImage(imageMap);
 
-                fileUploadHandler.deleteFile(reviewDTO.getOrderCode(), fileName, "review");
             }
+            fileUploadHandler.deleteFile(reviewDTO.getOrderCode(), deleteFileArr, "review");
 
-        imageMap.clear();
+            imageMap.clear();
+        }
 
         // 신규파일 추가
+        resultMessage = uploadFiles(reviewDTO, fileArr, imageMap);
+
+        return resultMessage;
+    }
+
+    @Override
+    public void deleteReview(ReviewDTO reviewDTO)
+    {
+        userDAO.deleteReview(reviewDTO);
+
+        FileUploadHandler fileUploadHandler = new FileUploadHandler();
+        fileUploadHandler.deleteDirectory(reviewDTO.getOrderCode(), "review");
+    }
+
+    @Override
+    public List<ReviewDTO> getItemReviewList(String itemCode)
+    {
+        return userDAO.getItemReviewList(itemCode);
+    }
+
+    @Override
+    public Integer getItemReviewCount(String itemCode)
+    {
+        return userDAO.getItemReviewCount(itemCode);
+    }
+
+
+    // 서비스 내에서 사용하는 공통 코드 영역
+    
+    // 상품 평점
+    private String ratingItem(HashMap<String, Object> ratingMap, Float[] rateArr, String[] itemCodeArr, String requestType)
+    {
+        Integer result;
+
+        // 24.04.03 itemCode를 itemRates 테이블에 저장하므로 리뷰 출력을 위해 itemCode는 반드시 저장되어야 함.
+        for (int i = 0; i < itemCodeArr.length; i++)
+        {
+            String itemCode = itemCodeArr[i];
+            Float rate;
+
+            rate = rateArr[i];
+            ratingMap.put("itemRate",rate);
+            ratingMap.put("itemCode", itemCode);
+
+            if(requestType.equals("post"))
+                result = userDAO.postRate(ratingMap);
+            else if(requestType.equals("update"))
+                result = userDAO.updateRate(ratingMap);
+            else
+                result = 0;
+
+            if (result < 1)
+                return "fail";
+
+            log.info("평점등록 통과");
+        }
+        return "success";
+    }
+    
+    // 파일 업로드
+    private String uploadFiles(ReviewDTO reviewDTO, MultipartFile[] fileArr, HashMap<String, String> imageMap)
+    {
+        String url;
+        Integer result;
+        FileUploadHandler fileUploadHandler = new FileUploadHandler();
         if(fileArr != null)
         {
             for (MultipartFile multipartFile : fileArr)
             {
-                url = "/img/reviews/"+reviewDTO.getOrderCode()+"/"+multipartFile.getOriginalFilename();
+                url = "/img/reviews/"+ reviewDTO.getOrderCode()+"/"+multipartFile.getOriginalFilename();
 
-                imageMap.put("reviewCode",reviewCode);
+                imageMap.put("reviewCode", reviewDTO.getReviewCode());
                 imageMap.put("imageUrl",url);
 
                 result = userDAO.postReviewImage(imageMap);
@@ -391,13 +422,6 @@ public class UserServiceImpl implements UserService
 
             fileUploadHandler.fileUpload(fileArr, "review", reviewDTO.getOrderCode());
         }
-
         return "success";
-    }
-
-    @Override
-    public void deleteReview(ReviewDTO reviewDTO)
-    {
-        userDAO.deleteReview(reviewDTO);
     }
 }

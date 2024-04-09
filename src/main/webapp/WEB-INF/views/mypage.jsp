@@ -16,11 +16,11 @@
         </div>
         <div class="sidebarMenuList">
             <ul class="sidebarMenu">
-                <li><a href="/user/mypage/orderlist">주문내역</a></li>
-                <li><a href="/user/mypage/reviewlist">리뷰관리</a></li>
-                <li><a href="/user/mypage/inquirylist">문의관리</a></li>
-                <li><a href="/user/mypage/paymentmethod">결제수단관리</a></li>
-                <li><a href="/user/mypage/userinfo">개인정보변경</a></li>
+                <li class="userMenu"><a href="/user/mypage/orderlist">주문내역</a></li>
+                <li class="userMenu"><a href="/user/mypage/reviewlist">리뷰관리</a></li>
+                <li class="userMenu"><a href="/user/mypage/inquirylist">문의관리</a></li>
+                <li class="userMenu"><a href="/user/mypage/paymentmethod">결제수단관리</a></li>
+                <li class="userMenu"><a href="/user/mypage/userinfo">개인정보변경</a></li>
             </ul>
         </div>
     </div>
@@ -36,6 +36,9 @@
             <c:when test="${page eq 'review'}">
                 <c:import url="reviewForm.jsp"></c:import>
             </c:when>
+            <c:otherwise>
+                <div style="margin-left: 500px">미구현 페이지입니다.</div>
+            </c:otherwise>
         </c:choose>
     </div>
 

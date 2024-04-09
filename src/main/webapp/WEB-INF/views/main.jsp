@@ -138,23 +138,52 @@
                     , success: function (resultMap) {
                         let newestList = resultMap.newestList;
                         let popularList = resultMap.popularList;
+                        let thumbnailList = resultMap.thumbnailList;
                         let newestListHtml = "";
                         let popularListHtml = "";
 
-                        for (let i = 0; i < newestList.length; i++) {
+                        for (let i = 0; i < newestList.length; i++)
+                        {
                             let newestItem = newestList[i];
-                            newestListHtml += "<div class='item' data-itemCode='" + newestItem.itemCode + "'>"
-                                + "<div class='thumbnail'></div>"
+                            newestListHtml += "<div class='item' data-itemcode='" + newestItem.itemCode + "'>"
+                                + "<div class='thumbnail'>"
+                            if(thumbnailList != null)
+                            {
+                                for (let thumbnail of thumbnailList)
+                                {
+                                    let code = thumbnail.code;
+                                    if(code == newestItem.itemCode)
+                                    {
+                                        newestListHtml += "<img src='"+ thumbnail.url +"'>"
+                                        break;
+                                    }
+                                }
+                            }
+                            newestListHtml += "</div>"
                                 + "<div class='itemTitle'>" + newestItem.itemName + "</div>"
                                 + "<div class='priceLine'></div>"
                                 + "<div class='itemPrice'>￦" + newestItem.itemPrice + "</div>"
                                 + "</div>";
                         }
 
-                        for (let i = 0; i < popularList.length; i++) {
+                        for (let i = 0; i < popularList.length; i++)
+                        {
                             let popularItem = popularList[i];
                             popularListHtml += "<div class='item' data-itemcode='" + popularItem.itemCode + "'>"
-                                + "<div class='thumbnail'></div>"
+                                + "<div class='thumbnail'>"
+                                if(thumbnailList != null)
+                                {
+                                    for (let thumbnail of thumbnailList)
+                                    {
+                                        let code = thumbnail.code;
+                                        if(code == popularItem.itemCode)
+                                        {
+                                            popularListHtml += "<img src='"+ thumbnail.url +"'>"
+                                            break;
+                                        }
+                                    }
+                                }
+                                popularListHtml += "</div>"
                                 + "<div class='itemTitle'>" + popularItem.itemName + "</div>"
                                 + "<div class='priceLine'></div>"
                                 + "<div class='itemPrice'>￦" + popularItem.itemPrice + "</div>"

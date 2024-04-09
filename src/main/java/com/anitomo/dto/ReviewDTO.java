@@ -4,7 +4,8 @@ import java.util.Arrays;
 
 public class ReviewDTO
 {
-    String reviewCode, reviewTitle, reviewContent, reviewDate, userCode, userId, orderCode;
+    String reviewCode, reviewTitle, reviewContent, reviewDate, userCode, userId, userName, orderCode, itemCode;
+    Float itemRate;
     Float[] rateArr;
     String[] itemCodeArr;
 
@@ -18,7 +19,10 @@ public class ReviewDTO
                 ", reviewDate='" + reviewDate + '\'' +
                 ", userCode='" + userCode + '\'' +
                 ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
                 ", orderCode='" + orderCode + '\'' +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemRate=" + itemRate +
                 ", rateArr=" + Arrays.toString(rateArr) +
                 ", itemCodeArr=" + Arrays.toString(itemCodeArr) +
                 '}';
@@ -84,6 +88,16 @@ public class ReviewDTO
         this.userId = userId;
     }
 
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    public void setUserName(String userName)
+    {
+        this.userName = userName;
+    }
+
     public String getOrderCode()
     {
         return orderCode;
@@ -92,6 +106,26 @@ public class ReviewDTO
     public void setOrderCode(String orderCode)
     {
         this.orderCode = orderCode;
+    }
+
+    public String getItemCode()
+    {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode)
+    {
+        this.itemCode = itemCode;
+    }
+
+    public Float getItemRate()
+    {
+        return itemRate;
+    }
+
+    public void setItemRate(Float itemRate)
+    {
+        this.itemRate = itemRate;
     }
 
     public Float[] getRateArr()

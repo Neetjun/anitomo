@@ -16,7 +16,7 @@
   <c:choose>
     <c:when test="${orderList eq []}">
       <div class="noItem">
-        <span>주문 내역이 존재하지 않습니다. 사주세요 ㅠㅠ..</span>
+        <span>등록 및 확인 가능한 리뷰가 존재하지 않습니다.</span>
       </div>
     </c:when>
     <c:otherwise>

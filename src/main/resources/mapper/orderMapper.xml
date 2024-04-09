@@ -73,7 +73,7 @@
 
     <insert id="makeOrder" parameterType="orderDTO">
         INSERT INTO ORDERS (ORDER_CODE, ORDER_STATUS_CODE, ORDER_DATE, USER_CODE, USER_ID, ADDRESS_CODE)
-        VALUES ('O'||(SELECT COUNT(*)+1 FROM ORDERS), #{orderStatusCode}, SYSDATE, #{userCode}, #{userId}, #{addressCode})
+        VALUES ('O'||ORDER_SEQUENCE.NEXTVAL, #{orderStatusCode}, SYSDATE, #{userCode}, #{userId}, #{addressCode})
     </insert>
 
     <insert id="makeOrderDetail" parameterType="orderDTO">

@@ -20,11 +20,6 @@
         WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
     </select>
 
-    <select id="countUser" resultType="int">
-        SELECT COUNT(USER_CODE)
-        FROM USERINFOES
-    </select>
-
     <select id="checkId" resultType="int" parameterType="String">
         SELECT COUNT(*)
         FROM USERINFOES
@@ -72,6 +67,12 @@
         WHERE ORDER_CODE = #{orderCode} AND USER_CODE = #{userCode} AND USER_ID = #{userId}
     </select>
 
+    <select id="getItemReviewCount" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM ITEM_RATES
+        WHERE ITEM_CODE = #{itemCode}
+    </select>
+
     <select id="getMyReviewCode" parameterType="reviewDTO" resultType="String">
         SELECT MAX(REVIEW_CODE)
         FROM REVIEWS
@@ -82,22 +83,36 @@
         SELECT IMAGE_URL
         FROM REVIEW_IMAGES
         WHERE REVIEW_CODE = #{reviewCode}
+        ORDER BY IMAGE_UPLOAD_DATE
+    </select>
+
+    <select id="getItemReviewList" parameterType="string" resultType="reviewDTO">
+        SELECT R.REVIEW_CODE AS reviewCode, REVIEW_TITLE AS reviewTitle, REVIEW_CONTENT AS ReviewContent, TO_CHAR(REVIEW_DATE,'YYYY-MM-DD') AS reviewDate
+             , R.USER_CODE AS userCode, R.USER_ID AS userId, U.USER_NAME AS userName, ITEM_CODE AS itemCode, ITEM_RATE AS itemRate
+        FROM REVIEWS R
+        LEFT JOIN ITEM_RATES IR
+          ON R.REVIEW_CODE = IR.REVIEW_CODE
+        LEFT JOIN USERINFOES U
+          ON R.USER_CODE = U.USER_CODE
+        WHERE ITEM_CODE = #{itemCode}
+          AND REVIEW_DELETE_YN = 'N'
+        ORDER BY REVIEWDATE DESC
     </select>
 
     <insert id="registerUser" parameterType="userDTO" >
         INSERT INTO USERINFOES (USER_CODE, USER_ID, USER_TYPE, USER_PW, USER_NAME, USER_TEL, USER_BIRTH, USER_STATUS)
-        VALUES (#{userCode}, #{userId}, ${userType}, #{userPw}, #{userName}, #{userTel}, TO_DATE(#{userBirth}, 'YYYY-MM-DD'), #{userStatus})
+        VALUES ('U'||USER_SEQUENCE.NEXTVAL, #{userId}, ${userType}, #{userPw}, #{userName}, #{userTel}, TO_DATE(#{userBirth}, 'YYYY-MM-DD'), #{userStatus})
     </insert>
 
     <insert id="addAddress" parameterType="addressDTO">
         INSERT INTO DELIVERY_ADDRESSES (ADDRESS_CODE, RECIPIENT, RECIPIENT_TEL, DELIVERY_MESSAGE, DEFAULT_DELIVERY_ADDRESS,
                                         ADDRESS, USER_CODE, USER_ID)
-        VALUES ('D' || (SELECT COUNT(*)+1 FROM DELIVERY_ADDRESSES), #{recipient}, #{recipientTel}, #{deliveryMessage}, #{defaultDeliveryAddress}, #{address}, #{userCode}, #{userId})
+        VALUES ('D' || ADDRESS_SEQUENCE.NEXTVAL, #{recipient}, #{recipientTel}, #{deliveryMessage}, #{defaultDeliveryAddress}, #{address}, #{userCode}, #{userId})
     </insert>
 
     <insert id="postReview" parameterType="reviewDTO">
         INSERT INTO REVIEWS (REVIEW_CODE, REVIEW_TITLE, REVIEW_CONTENT, USER_CODE, USER_ID, ORDER_CODE)
-        VALUES ('R'||(SELECT COUNT(*)+1 FROM REVIEWS), #{reviewTitle}, #{reviewContent}, #{userCode}, #{userId}, #{orderCode})
+        VALUES ('R'||REVIEW_SEQUENCE.NEXTVAL, #{reviewTitle}, #{reviewContent}, #{userCode}, #{userId}, #{orderCode})
     </insert>
 
     <insert id="postRate" parameterType="hashmap">
@@ -106,7 +121,7 @@
     </insert>
 
     <insert id="postReviewImage" parameterType="hashmap">
-        INSERT INTO REVIEW_IMAGES
+        INSERT INTO REVIEW_IMAGES(REVIEW_CODE, IMAGE_URL)
         VALUES (#{reviewCode}, #{imageUrl})
     </insert>
 
@@ -130,7 +145,11 @@
 
     <update id="updateRate" parameterType="hashmap">
         UPDATE ITEM_RATES
-        SET ITEM_RATE = ${itemRate}
+        SET ITEM_RATE =
+            <choose>
+                <when test="itemRate == 0">NULL</when>
+                <otherwise>#{itemRate}</otherwise>
+            </choose>
         WHERE REVIEW_CODE = #{reviewCode} AND ITEM_CODE = #{itemCode}
     </update>
 

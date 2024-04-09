@@ -12,7 +12,7 @@
     <div class="itemDetailArea wrapper">
         <div class="itemSummaryArea">
             <div class="itemImage">
-                <img src="/resources/img/tmpItemImage.jpg" alt="">
+                <img src="${thumbnailUrl}" alt="">
             </div>
             <div class="itemSummary">
                 <div class="itemName">
@@ -78,18 +78,17 @@
 
         <div class="itemDetailNav" id="detailNav">
             <a href="#detailNav" class="scrollNav"><span>상품상세</span></a>
-            <a href="#reviewNav" class="scrollNav"><span>리뷰(2)</span></a>
+            <a href="#reviewNav" class="scrollNav"><span>리뷰(${reviewCount})</span></a>
             <a href="#inquiryNav" class="scrollNav"><span class="inquiryCount"></span></a>
         </div>
 
         <div class="itemDetailContentArea">
-            <img src="/resources/img/tmpItemImage.jpg" alt="">
             <p>${item.itemDescription}</p>
         </div>
 
         <div class="itemDetailNav" id="reviewNav">
             <a href="#detailNav" class="scrollNav"><span>상품상세</span></a>
-            <a href="#reviewNav" class="scrollNav"><span>리뷰(2)</span></a>
+            <a href="#reviewNav" class="scrollNav"><span>리뷰(${reviewCount})</span></a>
             <a href="#inquiryNav" class="scrollNav"><span class="inquiryCount"></span></a>
         </div>
 
@@ -104,27 +103,50 @@
                         <th>작성자</th>
                         <th>작성일</th>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>굿굿 배송 완전 빠름</td>
-                        <td>★★★★★</td>
-                        <td>정대만</td>
-                        <td>2024-03-18</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>완전조음</td>
-                        <td>★★★★★</td>
-                        <td>김철수</td>
-                        <td>2024-03-01</td>
-                    </tr>
+                    <c:forEach var="review" items="${reviewList}">
+                        <c:set var="imageList" value="${imageMap[review.reviewCode]}"></c:set>
+                        <tr class="reviewTitle">
+                            <td>${review.reviewCode}</td>
+                            <td>${review.reviewTitle}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${review.itemRate eq null}">
+                                        평가안함
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach begin="1" end="${review.itemRate}">
+                                            ★
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>${review.userName}</td>
+                            <td>${review.reviewDate}</td>
+                        </tr>
+                        <tr class='reviewContent' hidden='hidden'>
+                            <td colspan='5'>
+                                <div class='inquiryContentArea'>
+                                    <div class='inquiryContent'>${review.reviewContent}</div>
+                                    <div class="reviewImageArea">
+                                        <c:forEach var="imageUrl" items="${imageList}">
+                                            <div class="reviewImageList">
+                                                <div class="reviewImage">
+                                                    <img src="${imageUrl}" alt="" class="reviewImg">
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
                 </table>
             </div>
         </div>
 
         <div class="itemDetailNav" id="inquiryNav">
             <a href="#detailNav" class="scrollNav"><span>상품상세</span></a>
-            <a href="#reviewNav" class="scrollNav"><span>리뷰(2)</span></a>
+            <a href="#reviewNav" class="scrollNav"><span>리뷰(${reviewCount})</span></a>
             <a href="#inquiryNav" class="scrollNav"><span class="inquiryCount"></span></a>
         </div>
 
@@ -178,7 +200,6 @@
     <c:import url="footer.jsp"></c:import>
 
     <%--스크립트 영역--%>
-
     <script src="/resources/js/toastr.min.js"></script> <%-- 토스트메시지 라이브러리 --%>
     <script>
         $(document).ready(function () {
@@ -304,6 +325,20 @@
                     , error : function (response) { console.log(response.responseText) }
                 });
             })
+
+            // 리뷰 상세내용 노출
+            $(document).on("click", ".reviewTitle", function () {
+                if($(this).next(".reviewContent").attr("hidden") == "hidden")
+                    $(this).next(".reviewContent").removeAttr("hidden");
+                else
+                    $(this).next(".reviewContent").attr("hidden","hidden");
+            });
+
+            // 리뷰 이미지 클릭 시 새탭 열기
+            $('.reviewImg').click(function(){
+                let imageUrl = $(this).attr('src');
+                window.open(imageUrl, '_blank');
+            });
 
             // 문의하기 목록 가져오기
             function showInquiryList() {

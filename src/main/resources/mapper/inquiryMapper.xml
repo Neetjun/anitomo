@@ -11,7 +11,7 @@
                                     INQUIRY_ANSWER_DATE, INQUIRY_STATUS, USER_CODE, USER_ID, ITEM_CODE)
         VALUES
             (
-                'IQ' || (SELECT COUNT(*)+1 FROM ITEM_INQUIRIES)
+                'IQ' || INQUIRY_SEQUENCE.NEXTVAL
                 , #{inquiryTitle}
                 , #{inquiryContent}
                 , SYSDATE

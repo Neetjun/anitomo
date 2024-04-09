@@ -48,4 +48,8 @@ public interface UserService
     String updateReview(ReviewDTO reviewDTO, MultipartFile[] fileArr, String[] deleteFileArr);
 
     void deleteReview(ReviewDTO reviewDTO);
+
+    List<ReviewDTO> getItemReviewList(String itemCode);
+
+    Integer getItemReviewCount(String itemCode);
 }

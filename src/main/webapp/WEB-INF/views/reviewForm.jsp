@@ -138,10 +138,20 @@
                     let rate = $(this).data("value");
                     let itemCode = $(this).parent().attr("id");
                     let starArr = $("#"+itemCode).children(".star");
+                    let selectedRate = $("#"+itemCode).children(".selected").data("value");
+
+                    // 같은 별을 눌렀을 때는 취소
+                    if(rate == selectedRate)
+                    {
+                        starArr.css("color","darkgray");
+                        starArr.removeClass("selected");
+                        return;
+                    }
 
                     for(let i = 0; i < starArr.length; i++)
                     {
                         let star = starArr.eq(i);
+
                         if(star.data("value") <= rate)
                             star.css("color","darkred");
                         else
@@ -223,11 +233,15 @@
                         if (file != "")
                             formData.append("fileArr", file);
 
-                    for (let i = 0; i < $(".selected").length; i++)
+                    for(let i = 0; i < $(".ratingStar").length; i ++)
                     {
-                        let rate = $(".selected").eq(i);
-                        formData.append("rateArr", rate.data("value"));
-                        formData.append("itemCodeArr", rate.parent().attr("id"));
+                        let itemCode = $(".ratingStar").eq(i);
+                        formData.append("itemCodeArr", itemCode.attr("id"));
+
+                        if(itemCode.children("span").hasClass("selected"))
+                            formData.append("rateArr", itemCode.children(".selected").data("value"));
+                        else
+                            formData.append("rateArr", "0");
                     }
 
                     formData.append("reviewTitle", $("#reviewTitleInput").val());
@@ -316,7 +330,7 @@
                         $.ajax({
                             url: "/user/review?mode=delete"
                             , type: "POST"
-                            , data: {"reviewCode" : "${reviewCode}"}
+                            , data: {"reviewCode" : "${reviewCode}", "orderCode" : "${orderCode}"}
                             , success: function () {
                                 window.location.href = "/user/mypage/reviewlist";
                             }

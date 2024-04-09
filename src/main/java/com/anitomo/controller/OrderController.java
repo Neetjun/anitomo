@@ -55,7 +55,7 @@ public class OrderController
         {
             String itemCode = itemCodeList[i];
 
-            ItemDTO itemDTO = itemService.showItemDetail(itemCode);
+            ItemDTO itemDTO = itemService.getItemDetail(itemCode);
             Integer quantity = itemQuantityList[i];
 
             Object[] orderInfo = {itemDTO, quantity};

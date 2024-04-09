@@ -5,30 +5,118 @@
 
 <!-- SQL Mapping -->
 <mapper namespace="com.anitomo.dao.ItemDAO">
-
-    <select id="mainNewestList" resultType="itemDTO">
-        SELECT *
+    <select id="getItemList" resultType="itemDTO" parameterType="hashmap">
+        SELECT RNUM, ITEMCODE, ITEMNAME, ITEMDESCRIPTION, ITEMTYPE, ITEMPRICE, ITEMDATE
         FROM
             (
-                SELECT ITEM_CODE AS itemCode, ITEM_NAME AS itemName, TO_CHAR(ITEM_PRICE, 'FM999,999,999,999') AS itemPrice
-                FROM ITEMS
-                ORDER BY ITEM_DATE DESC
+                SELECT ROW_NUMBER() OVER
+                    (
+                        <choose>
+                            <when test="sort != null">
+                                <if test="sort.equals('newest')">
+                                    ORDER BY TO_NUMBER(SUBSTR(ITEM_CODE,2)) DESC
+                                </if>
+                                <if test="sort.equals('popular')">
+                                    ORDER BY ITEM_SALES_COUNT DESC
+                                </if>
+                                <if test="sort.equals('price')">
+                                    ORDER BY ITEM_PRICE
+                                </if>
+                                <if test="sort.equals('priceDesc')">
+                                    ORDER BY ITEM_PRICE DESC
+                                </if>
+                            </when>
+                            <otherwise>
+                                ORDER BY TO_NUMBER(SUBSTR(ITEM_CODE,2)) DESC
+                            </otherwise>
+                        </choose>
+                    ) AS RNUM
+                     , ITEM_CODE AS itemCode, ITEM_NAME AS itemName, ITEM_DESCRIPTION AS itemDescription, TYPE_NAME AS itemType, ITEM_PRICE
+                     , TO_CHAR(ITEM_PRICE, 'FM999,999,999,999') AS itemPrice, TO_CHAR(ITEM_DATE, 'YYYY-MM-DD') AS itemDate
+                     , I.MAKER_CODE AS makerCode, I.SERIES_CODE AS seriesCode, I.TYPE_CODE AS itemTypeCode
+                FROM ITEMS I JOIN ITEM_TYPES IT
+                  ON I.TYPE_CODE = IT.TYPE_CODE
+                JOIN SERIESES S
+                  ON I.SERIES_CODE = S.SERIES_CODE
+                JOIN MAKERS M
+                  ON I.MAKER_CODE = M.MAKER_CODE
+                WHERE ITEM_DELETE_YN != 'Y'
+                <if test="keyword != null">
+                    <if test="searchType != null">
+                        <if test="searchType.equals('series')">
+                            AND I.SERIES_CODE = #{code.seriesCode}
+                        </if>
+                        <if test="searchType.equals('maker')">
+                            AND I.MAKER_CODE = #{code.makerCode}
+                        </if>
+                        <if test="searchType.equals('itemType')">
+                            AND I.TYPE_CODE = #{code.itemTypeCode}
+                        </if>
+                    </if>
+                </if>
             )
-        WHERE ROWNUM BETWEEN 1 AND 6
+        WHERE RNUM BETWEEN (${page}-1)*10+1 AND ${page}*10
+        <if test="keyword != null">
+            <choose>
+                <when test="admin == null">
+                    AND ITEMNAME LIKE '%'||#{keyword}||'%'
+                    OR ITEMDESCRIPTION LIKE '%'||#{keyword}||'%'
+                </when>
+                <otherwise>
+                    AND ITEMNAME LIKE '%'||#{keyword}||'%'
+                    OR ITEMCODE LIKE '%'||#{keyword}||'%'
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+    <select id="countItemList" resultType="int" parameterType="hashmap">
+        SELECT COUNT(*)
+        FROM ITEMS I JOIN ITEM_TYPES IT
+        ON I.TYPE_CODE = IT.TYPE_CODE
+        JOIN SERIESES S
+        ON I.SERIES_CODE = S.SERIES_CODE
+        JOIN MAKERS M
+        ON I.MAKER_CODE = M.MAKER_CODE
+        WHERE ITEM_DELETE_YN != 'Y'
+        <if test="keyword != null">
+            <if test="searchType != null">
+                <if test="searchType.equals('series')">
+                    AND I.SERIES_CODE = #{code.seriesCode}
+                </if>
+            </if>
+        </if>
+        <if test="keyword != null">
+            <choose>
+                <when test="admin == null">
+                    AND ITEM_NAME LIKE '%'||#{keyword}||'%'
+                    OR ITEM_DESCRIPTION LIKE '%'||#{keyword}||'%'
+                </when>
+                <otherwise>
+                    AND ITEM_NAME LIKE '%'||#{keyword}||'%'
+                    OR ITEM_CODE LIKE '%'||#{keyword}||'%'
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+    <select id="mainNewestList" resultType="itemDTO">
+            SELECT ROWNUM, ITEM_CODE AS itemCode, ITEM_NAME AS itemName, TO_CHAR(ITEM_PRICE, 'FM999,999,999,999') AS itemPrice
+            FROM ITEMS
+            WHERE ITEM_DELETE_YN != 'Y'
+              AND ROWNUM <![CDATA[<]]>= 6
+            ORDER BY TO_NUMBER(SUBSTR(ITEMCODE,2)) DESC
     </select>
 
     <select id="mainPopularList" resultType="itemDTO">
-        SELECT *
-        FROM
-            (
-                SELECT ITEM_CODE AS itemCode, ITEM_NAME AS itemName, TO_CHAR(ITEM_PRICE, 'FM999,999,999,999') AS itemPrice
-                FROM ITEMS
-                ORDER BY ITEM_SALES_COUNT DESC
-            )
-        WHERE ROWNUM BETWEEN 1 AND 6
+            SELECT ROWNUM, ITEM_CODE AS itemCode, ITEM_NAME AS itemName, TO_CHAR(ITEM_PRICE, 'FM999,999,999,999') AS itemPrice
+            FROM ITEMS
+            WHERE ITEM_DELETE_YN != 'Y'
+              AND ROWNUM <![CDATA[<]]>= 6
+            ORDER BY ITEM_SALES_COUNT DESC
     </select>
 
-    <select id="itemDetail" resultType="itemDTO" parameterType="String">
+    <select id="getItemDetail" resultType="itemDTO" parameterType="String">
         SELECT I.ITEM_CODE AS itemCode, I.ITEM_NAME AS itemName, I.ITEM_PRICE AS itemPrice, I.ITEM_SIZE AS itemSIze, I.ITEM_DESCRIPTION AS itemDescription
              , I.ITEM_DATE AS itemDate, M.MAKER_NAME AS makerName, S.SERIES_NAME AS seriesName, IT.TYPE_NAME AS itemType
         FROM ITEMS I JOIN MAKERS M
@@ -39,5 +127,107 @@
                           ON I.TYPE_CODE = IT.TYPE_CODE
         WHERE ITEM_CODE = #{itemCode}
     </select>
+
+    <select id="getSeriesList" resultType="seriesDTO">
+        SELECT SERIES_CODE AS seriesCode, SERIES_NAME AS seriesName
+        FROM SERIESES
+        ORDER BY SERIES_NAME
+    </select>
+
+    <select id="getItemTypeList" resultType="itemTypeDTO">
+        SELECT TYPE_CODE AS itemTypeCode, TYPE_NAME AS itemType
+        FROM ITEM_TYPES
+        ORDER BY itemType
+    </select>
+
+    <select id="getMakerList" resultType="makerDTO">
+        SELECT MAKER_CODE AS makerCode, MAKER_NAME AS makerName
+        FROM MAKERS
+        ORDER BY makerName
+    </select>
+
+    <select id="getNewItemCode" resultType="string">
+        SELECT 'I'||ITEM_SEQUENCE.NEXTVAL
+        FROM DUAL
+    </select>
+
+    <select id="getLastItemCode" resultType="String">
+        SELECT 'I'||(LAST_NUMBER-1) AS ITEMCODE
+        FROM USER_SEQUENCES
+        WHERE SEQUENCE_NAME = 'ITEM_SEQUENCE'
+    </select>
+
+    <select id="getThumbnailList" resultType="imageDTO">
+        SELECT ITEM_CODE AS code, IMAGE_URL AS url
+        FROM ITEM_IMAGES
+        WHERE THUMBNAIL_YN = 'Y'
+    </select>
+
+    <select id="getThumbnail" parameterType="string" resultType="string">
+        SELECT IMAGE_URL
+        FROM ITEM_IMAGES
+        WHERE THUMBNAIL_YN = 'Y'
+          AND ITEM_CODE = #{itemCode}
+    </select>
+
+    <select id="countItemImage" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM ITEM_IMAGES
+        WHERE IMAGE_URL = #{url}
+    </select>
+
+    <select id="getItemImageUrlList" parameterType="string" resultType="string">
+        SELECT SUBSTR(IMAGE_URL, INSTR(IMAGE_URL,'/',-1)+1) AS fileName
+        FROM ITEM_IMAGES
+        WHERE ITEM_CODE = #{itemCode}
+    </select>
+
+    <insert id="postItem" parameterType="itemDTO">
+        INSERT INTO ITEMS (ITEM_CODE, ITEM_NAME, ITEM_PRICE, ITEM_SIZE, ITEM_DESCRIPTION, MAKER_CODE, SERIES_CODE, TYPE_CODE)
+        VALUES (#{itemCode}, #{itemName}, ${itemPrice}, ${itemSize}, #{itemDescription}, #{makerCode}, #{seriesCode}, #{itemTypeCode})
+    </insert>
+
+    <insert id="postItemImage" parameterType="hashmap">
+        INSERT INTO ITEM_IMAGES (ITEM_CODE, IMAGE_URL)
+        VALUES (#{itemCode}, #{url})
+    </insert>
+
+    <update id="setThumbnail" parameterType="string">
+        UPDATE ITEM_IMAGES
+        SET THUMBNAIL_YN = 'Y'
+        WHERE ITEM_CODE = #{newItemCode}
+          AND IMAGE_URL =
+                (
+                    SELECT IMAGE_URL
+                    FROM
+                        (
+                            SELECT IMAGE_URL
+                            FROM ITEM_IMAGES
+                            WHERE ITEM_CODE = #{newItemCode}
+                            ORDER BY IMAGE_UPLOAD_DATE
+                         )
+                    WHERE ROWNUM = 1
+                )
+    </update>
+
+    <update id="deleteItem" parameterType="itemDTO">
+        UPDATE ITEMS
+        SET ITEM_DELETE_YN = 'Y'
+        WHERE ITEM_CODE = #{itemCode}
+    </update>
+
+    <update id="updateItem" parameterType="itemDTO">
+        UPDATE ITEMS
+        SET ITEM_NAME = #{itemName}, ITEM_PRICE = ${itemPrice}, ITEM_SIZE = ${itemSize}, ITEM_DESCRIPTION = #{itemDescription}
+          , MAKER_CODE = #{makerCode}, SERIES_CODE = #{seriesCode}, TYPE_CODE = #{itemTypeCode}
+        WHERE ITEM_CODE = #{itemCode}
+    </update>
+
+    <delete id="deleteItemImage" parameterType="hashmap">
+        DELETE
+        FROM ITEM_IMAGES
+        WHERE ITEM_CODE = #{itemCode} AND SUBSTR(IMAGE_URL, INSTR(IMAGE_URL,'/',-1)+1) = #{name}
+    </delete>
+
 
 </mapper>
