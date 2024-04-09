@@ -3,8 +3,8 @@
 <html>
 <head>
     <title>페이지를 찾을 수 없습니다.</title>
-    <link rel="stylesheet" href="/resources/css/orderResult.css">
-    <link rel="icon" href="/resources/favicon.ico">
+    <link rel="stylesheet" href="/anitomo/resources/css/orderResult.css">
+    <link rel="icon" href="/anitomo/resources/favicon.ico">
 </head>
 <body>
 

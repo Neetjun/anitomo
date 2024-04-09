@@ -1,9 +1,7 @@
 package com.anitomo.controller;
 
-import com.anitomo.dto.AddressDTO;
-import com.anitomo.dto.OrderDTO;
-import com.anitomo.dto.ReviewDTO;
-import com.anitomo.dto.UserDTO;
+import com.anitomo.dto.*;
+import com.anitomo.service.ItemService;
 import com.anitomo.service.OrderService;
 import com.anitomo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,11 +23,13 @@ public class UserController
 {
     private UserService userService;
     private OrderService orderService;
+    private ItemService itemService;
 
-    public UserController(UserService userService, OrderService orderService)
+    public UserController(UserService userService, OrderService orderService, ItemService itemService)
     {
         this.userService = userService;
         this.orderService = orderService;
+        this.itemService = itemService;
     }
 
     // 회원가입 폼
@@ -145,6 +145,7 @@ public class UserController
 
                 List<OrderDTO> orderList = orderService.getOrderList(paramMap);
                 List<String> orderDateList = orderService.getOrderDateList(paramMap);
+                List<ImageDTO> thumbnailList = itemService.getThumbnailList();
                 HashMap<String, Integer> reviewCountMap = new HashMap<String, Integer>();
                 HashMap<String, List> orderDetailMap = new HashMap<String, List>();
 
@@ -166,6 +167,7 @@ public class UserController
                 model.addAttribute("orderDateList",orderDateList);
                 model.addAttribute("orderDetailMap",orderDetailMap);
                 model.addAttribute("reviewCountMap", reviewCountMap);
+                model.addAttribute("thumbnailList",thumbnailList);
 
                 paramMap.clear();
             }

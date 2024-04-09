@@ -3,8 +3,8 @@
 <html>
 <head>
     <title>장바구니</title>
-    <link rel="icon" href="/resources/favicon.ico">
-    <link rel="stylesheet" href="/resources/css/cart.css">
+    <link rel="icon" href="/anitomo/resources/favicon.ico">
+    <link rel="stylesheet" href="/anitomo/resources/css/cart.css">
 </head>
 <body>
     <c:import url="header.jsp" charEncoding="utf-8"></c:import>
@@ -15,7 +15,7 @@
                 <span>장바구니</span>
             </div>
             <div class="cartListArea">
-                <form action="/order" method="get" id="cartForm">
+                <form action="/anitomo/order" method="get" id="cartForm">
                     <input type="text" name="cartOrder" value="true" hidden="hidden">
                     <div class="cartBtnArea">
                         <div class="checkAllBoxArea">
@@ -43,10 +43,13 @@
             {
                 $.ajax({
                     type : "GET"
-                    , url : "/cart/list"
-                    , success : function (cartList) {
+                    , url : "/anitomo/cart/list"
+                    , success : function (cartMap) {
 
                         $(".itemInCart").remove();
+
+                        let cartList = cartMap.cartList;
+                        let thumbnailList = cartMap.thumbnailList;
 
                         let cartListHtml = "";
                         let orderPrice = 0;
@@ -82,9 +85,17 @@
                                                 +"<input type='text' class='itemPrice' value='" + item.itemPrice + "' hidden='hidden' disabled='disabled'>"
                                                 +"<input type='text' class='orderItemQuantity' value='" + item.cartQuantity + "' name='itemQuantityList' hidden='hidden' disabled='disabled'>"
                                                 +"<input type='text' class='orderItemCode' value='"+ item.itemCode +"' name='itemCodeList' hidden='hidden' disabled='disabled'>"
-                                                    +"<div class='thumbnailBox'>"
-                                                        +"<img src='/resources/img/tmpItemImage.jpg' alt='' class='thumbnail'>"
-                                                    +"</div>"
+                                                    +"<div class='thumbnailBox'>";
+                                                        for (let i = 0; i < thumbnailList.length; i++)
+                                                        {
+                                                            let thumbnail = thumbnailList[i];
+                                                            if(thumbnail.code == item.itemCode)
+                                                            {
+                                                                cartListHtml+="<img src='" + thumbnail.url + "' alt='' class='thumbnail'>";
+                                                                break;
+                                                            }
+                                                        }
+                                            cartListHtml+="</div>"
                                             +"</div>"
                                             +"<div class='itemNameAndPrice'>"
                                                 +"<div class='itemName'>" + item.itemName  + "</div>"
@@ -123,7 +134,7 @@
 
                 $.ajax({
                     type: "POST"
-                    , url: "/cart/update"
+                    , url: "/anitomo/cart/update"
                     , contentType: "application/json"
                     , data : JSON.stringify(newOrderData)
                     , success : function () {
@@ -217,7 +228,7 @@
                 {
                     $.ajax({
                         type: "POST"
-                        , url: "/cart/delete"
+                        , url: "/anitomo/cart/delete"
                         , contentType: "application/json"
                         , data: JSON.stringify(data)
                         , success: function () {
@@ -233,7 +244,7 @@
                 {
                     $.ajax({
                         type: "POST"
-                        , url: "/cart/delete"
+                        , url: "/anitomo/cart/delete"
                         , contentType: "application/json"
                         , data: JSON.stringify(data)
                         , success: function () {

@@ -3,7 +3,7 @@
 
 <html>
 <head>
-  <link rel="stylesheet" href="/resources/css/mypageOrderList.css">
+  <link rel="stylesheet" href="/anitomo/resources/css/mypageOrderList.css">
 </head>
 <body>
 
@@ -43,7 +43,11 @@
                           <div class='itemInfo'>
                             <div class='thumbnailArea'>
                               <div class='thumbnailBox'>
-                                <img src='/resources/img/tmpItemImage.jpg' alt='' class='thumbnail'>
+                                <c:forEach var="thumbnail" items="${thumbnailList}">
+                                  <c:if test="${thumbnail.code eq orderDetail.itemCode}">
+                                    <img src='${thumbnail.url}' alt='' class='thumbnail'>
+                                  </c:if>
+                                </c:forEach>
                               </div>
                             </div>
                             <div class='itemNameAndPrice'>
@@ -86,9 +90,9 @@
       let orderCode =$(this).val();
 
       if(requestType == "리뷰작성")
-        window.location.href = "/user/mypage/review?reviewOrderCode="+orderCode;
+        window.location.href = "/anitomo/user/mypage/review?reviewOrderCode="+orderCode;
       else
-        window.location.href = "/user/review/" + orderCode;
+        window.location.href = "/anitomo/user/review/" + orderCode;
     })
   })
 </script>

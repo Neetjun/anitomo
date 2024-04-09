@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>주문/결제</title>
-    <link rel="stylesheet" href="/resources/css/order.css">
+    <link rel="stylesheet" href="/anitomo/resources/css/order.css">
 </head>
 <body>
 
@@ -15,7 +15,7 @@
             <span>주문/결제</span>
         </div>
         <div class="orderForm">
-            <form action="/order?cartOrder=${cartOrder}" method="post" id="orderForm">
+            <form action="/anitomo/order?cartOrder=${cartOrder}" method="post" id="orderForm">
                 <div class="buyerInfoArea">
                     <span class="infoType">구매자 정보</span>
                     <table id="buyerInfoTable">
@@ -142,7 +142,7 @@
         function drawAddress(addressCode)
         {
             $.ajax({
-                url : "/order/address?addressCode="+addressCode
+                url : "/anitomo/order/address?addressCode="+addressCode
                 , type : "GET"
                 , success : function (address) {
                     if(address.adressCode == "")
@@ -196,7 +196,7 @@
                 let left = Math.ceil(($(window).width() - width)/2);
                 let top = Math.ceil(($(window).height() - height)/2);
 
-                window.open('/user/mypage/address?order=true','', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+                window.open('/anitomo/user/mypage/address?order=true','', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
             })
 
             // 결제방식 변경

@@ -4,8 +4,8 @@
 <html>
 <head>
     <title>Anitomo!</title>
-    <link rel="stylesheet" href="/resources/css/main.css">
-    <link rel="icon" href="/resources/favicon.ico">
+    <link rel="stylesheet" href="/anitomo/resources/css/main.css">
+    <link rel="icon" href="/anitomo/resources/favicon.ico">
 </head>
 <body>
     <%-- 헤더영역 --%>
@@ -19,13 +19,13 @@
             <div class="bannerImgBox">
                 <div id="bannerImgArea">
                     <a href="#">
-                        <img class="bannerImg" src="/resources/img/b1.png" alt="">
+                        <img class="bannerImg" src="/anitomo/resources/img/b1.png" alt="">
                     </a>
                     <a href="#">
-                        <img class="bannerImg" src="/resources/img/b2.png" alt="">
+                        <img class="bannerImg" src="/anitomo/resources/img/b2.png" alt="">
                     </a>
                     <a href="#">
-                        <img class="bannerImg" src="/resources/img/b3.png" alt="">
+                        <img class="bannerImg" src="/anitomo/resources/img/b3.png" alt="">
                     </a>
                 </div>
             </div>
@@ -133,7 +133,7 @@
             function showMainItemList()
             {
                 $.ajax({
-                    url: "/item/mainlist"
+                    url: "/anitomo/item/mainlist"
                     , type: "GET"
                     , success: function (resultMap) {
                         let newestList = resultMap.newestList;
@@ -202,7 +202,7 @@
 
             // 상품 상세페이지 이동
             $(document).on("click", ".item" ,function () {
-                let url = "/item/" + $(this).data("itemcode"); // 커스텀 속성 data-itemcode의 값을 가져옴
+                let url = "/anitomo/item/" + $(this).data("itemcode"); // 커스텀 속성 data-itemcode의 값을 가져옴
                 window.location.href = url;
             });
         })

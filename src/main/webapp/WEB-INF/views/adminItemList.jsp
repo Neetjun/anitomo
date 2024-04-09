@@ -3,13 +3,13 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="/resources/css/adminItemList.css">
+    <link rel="stylesheet" href="/anitomo/resources/css/adminItemList.css">
 </head>
 <body>
 
     <div class="itemListArea">
         <div class="itemSearchArea">
-            <form action="/admin/itemlist" id="adminItemListSearchForm">
+            <form action="/anitomo/admin/itemlist" id="adminItemListSearchForm">
                 <input type="text" id="adminItemSearchInput" name="keyword" placeholder="상품명 / 상품코드">
                 <input type="text" name="page" value="1" hidden="hidden">
                 <i id="adminItemSearchIcon" class="fa-solid fa-magnifying-glass searchIcon"></i>
@@ -57,7 +57,7 @@
             <button type="button" id="checkedItemDeleteBtn">선택삭제</button>
             <button type="button" id="itemEnrollBtn">상품등록</button>
         </div>
-        <form action="/item?mode=delete" method="post" id="itemDeleteForm" hidden="hidden">
+        <form action="/anitomo/item?mode=delete" method="post" id="itemDeleteForm" hidden="hidden">
             <input type="text" id="deleteItemCodeInput" name="itemCode"/>
         </form>
         <div class="pageArea">
@@ -122,7 +122,7 @@
             });
 
             $(".adminItemName").click(function () {
-                window.location.href = "/item/"+$(this).siblings(".adminItemCode").text();
+                window.location.href = "/anitomo/item/"+$(this).siblings(".adminItemCode").text();
             })
 
             // 상품 삭제 버튼
@@ -136,7 +136,7 @@
 
             // 상품 수정 버튼
             $(".itemUpdateBtn").click(function () {
-                window.location.href = "/admin/item?mode=update&itemCode="+$(this).val();
+                window.location.href = "/anitomo/admin/item?mode=update&itemCode="+$(this).val();
             })
             
             // 선택 삭제 버튼
@@ -162,7 +162,7 @@
 
             // 상품 등록 폼
             $("#itemEnrollBtn").click(function () {
-                window.location.href = "/admin/item";
+                window.location.href = "/anitomo/admin/item";
             })
 
             $("button[value='${param.page}']").css("backgroundColor","darkred");

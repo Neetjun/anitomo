@@ -3,11 +3,11 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="/resources/css/itemEnrollForm.css">
+    <link rel="stylesheet" href="/anitomo/resources/css/itemEnrollForm.css">
 </head>
 <body>
     <div class="itemEnrollFormArea">
-        <form action="${item eq null ? '/item' : '/item?mode=update&itemCode='}${item.itemCode}" method="post" id="itemEnrollForm">
+        <form action="${item eq null ? '/anitomo/item' : '/anitomo/item?mode=update&itemCode='}${item.itemCode}" method="post" id="itemEnrollForm">
             <div class="itemNameInputArea">
                 <div class="inputType">상품명</div>
                 <input type="text" id="itemNameInput" value="${item.itemName}" name="itemName">
@@ -50,7 +50,7 @@
             </div>
         </form>
     </div>
-    <script src="/resources/ckeditor/ckeditor.js"></script>
+    <script src="/anitomo/resources/ckeditor/ckeditor.js"></script>
     <script>
         $(document).ready(function () {
 
@@ -59,7 +59,7 @@
                 let placeholder = "모든 이미지는 상품상세 페이지에서 자동 가운데 정렬 됩니다. 가장 처음 등록된 이미지가 썸네일로 지정됩니다.";
                 console.log(placeholder);
                 CKEDITOR.replace('itemDescriptionInput', {
-                    filebrowserUploadUrl : '/item/image?itemCode='+"${item.itemCode}", // 이미지 업로드 Controller url
+                    filebrowserUploadUrl : '/anitomo/item/image?itemCode='+"${item.itemCode}", // 이미지 업로드 Controller url
                     width : "99%",
                     height : "500px",
                     resize_enabled : false,
@@ -106,7 +106,7 @@
 
            $(".submitBtnArea > button").click(function () {
                if($(this).attr("id") == "cancelBtn")
-                   return window.location.href = "/admin/itemlist";
+                   return window.location.href = "/anitomo/admin/itemlist";
                else
                {
                    let data = editorContent.getData();

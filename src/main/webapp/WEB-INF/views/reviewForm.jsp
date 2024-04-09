@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <link rel="stylesheet" href="/resources/css/reviewForm.css">
+    <link rel="stylesheet" href="/anitomo/resources/css/reviewForm.css">
 </head>
 <body>
     <div class="menuTitle">
@@ -249,14 +249,14 @@
                     formData.append("orderCode", "${orderCode}");
 
                     if(buttonType == "reviewSubmitBtn")
-                        url = "/user/review";
+                        url = "/anitomo/user/review";
                     else
                     {
                         for (let filename of deleteFileArr)
                             formData.append("deleteFileArr",filename);
                         formData.append("reviewCode","${reviewCode}");
 
-                        url = "/user/review?mode=update"
+                        url = "/anitomo/user/review?mode=update"
                     }
                     $.ajax({
                         url: url
@@ -265,7 +265,7 @@
                         , contentType: false
                         , processData: false
                         , success: function (orderCode) {
-                            window.location.href = "/user/review/" + orderCode;
+                            window.location.href = "/anitomo/user/review/" + orderCode;
                         }
                         , error: function (response) {
                             console.log(response.responseText)
@@ -273,7 +273,7 @@
                     })
                 }
                 else if (buttonType == "updateCancelBtn")
-                    window.location.href = "/user/review/"+"${orderCode}";
+                    window.location.href = "/anitomo/user/review/"+"${orderCode}";
             });
             
             $(".editBtn > button").click(function () {
@@ -328,11 +328,11 @@
                     confirm("정말 삭제하시겠습니까? \n리뷰 삭제 후 재등록이 불가능합니다.")
                     {
                         $.ajax({
-                            url: "/user/review?mode=delete"
+                            url: "/anitomo/user/review?mode=delete"
                             , type: "POST"
                             , data: {"reviewCode" : "${reviewCode}", "orderCode" : "${orderCode}"}
                             , success: function () {
-                                window.location.href = "/user/mypage/reviewlist";
+                                window.location.href = "/anitomo/user/mypage/reviewlist";
                             }
                             , error: function (response) {
                                 console.log(response.responseText)
@@ -342,7 +342,7 @@
             });
 
             $("#returnBtn").click(function () {
-               window.location.href = "/user/mypage/reviewlist";
+               window.location.href = "/anitomo/user/mypage/reviewlist";
             });
         })
     </script>

@@ -3,37 +3,37 @@
 
 <html>
 <head>
-  <link rel="stylesheet" href="/resources/css/header.css">
+  <link rel="stylesheet" href="/anitomo/resources/css/header.css">
 </head>
 <body>
   <div class="headerArea">
     <div class="gnbArea">
       <ul>
-        <a href="/user/cs"><li>고객센터</li></a>
+        <a href="/anitomo/user/cs"><li>고객센터</li></a>
         <c:choose>
           <c:when test="${loginUser.userType ne null && loginUser.userType eq 0}">
-            <a href="/user/mypage/orderlist"><li>마이페이지</li></a>
+            <a href="/anitomo/user/mypage/orderlist"><li>마이페이지</li></a>
           </c:when>
           <c:when test="${loginUser.userType ne null && loginUser.userType eq 1}">
-            <a href="/admin/itemlist"><li>운영자메뉴</li></a>
-            <a href="/user/mypage/orderlist"><li>마이페이지</li></a>
+            <a href="/anitomo/admin/itemlist"><li>운영자메뉴</li></a>
+            <a href="/anitomo/user/mypage/orderlist"><li>마이페이지</li></a>
           </c:when>
         </c:choose>
         <c:choose>
           <c:when test="${loginUser.userName eq null}">
-            <a href="/user"><li>회원가입</li></a>
-            <a href="/user/login"><li>로그인</li></a>
+            <a href="/anitomo/user"><li>회원가입</li></a>
+            <a href="/anitomo/user/login"><li>로그인</li></a>
           </c:when>
           <c:otherwise>
-            <a href="/cart"><li>장바구니</li></a>
-            <a href="/user/logout"><li>로그아웃</li></a>
+            <a href="/anitomo/cart"><li>장바구니</li></a>
+            <a href="/anitomo/user/logout"><li>로그아웃</li></a>
             <li id="loginUserName">${loginUser.userName}님 어서오세요!</li>
           </c:otherwise>
         </c:choose>
       </ul>
     </div>
     <div class="logoArea">
-      <div id="logoText"><a href="/"><span>Anitomo!</span></a></div>
+      <div id="logoText"><a href="/anitomo/"><span>Anitomo!</span></a></div>
       <form action="" method="get" id="mainSearchFrom">
         <input type="text" id="searchInput" name="keyword">
         <i class="fa-solid fa-magnifying-glass searchIcon"></i>
@@ -41,10 +41,10 @@
     </div>
     <div class="menuArea">
       <ul>
-        <li><a href="/item/list?listType=newest&sort=newest&page=1">신규상품</a></li>
-        <li><a href="/item/list?listType=series&sort=newest&page=1">작품별</a></li>
-        <li><a href="/item/list?listType=maker&sort=newest&page=1">제조사별</a></li>
-        <li><a href="/item/list?listType=itemType&sort=newest&page=1">종류별</a></li>
+        <li><a href="/anitomo/item/list?listType=newest&sort=newest&page=1">신규상품</a></li>
+        <li><a href="/anitomo/item/list?listType=series&sort=newest&page=1">작품별</a></li>
+        <li><a href="/anitomo/item/list?listType=maker&sort=newest&page=1">제조사별</a></li>
+        <li><a href="/anitomo/item/list?listType=itemType&sort=newest&page=1">종류별</a></li>
       </ul>
     </div>
   </div>

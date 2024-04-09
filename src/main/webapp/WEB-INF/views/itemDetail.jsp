@@ -3,9 +3,9 @@
 <html>
 <head>
     <title>상품상세</title>
-    <link rel="stylesheet" href="/resources/css/itemDetail.css">
-    <link rel="stylesheet" href="/resources/css/toastr.min.css"> <%-- 토스트 메시지 라이브러리 --%>
-    <link rel="icon" href="/resources/favicon.ico">
+    <link rel="stylesheet" href="/anitomo/resources/css/itemDetail.css">
+    <link rel="stylesheet" href="/anitomo/resources/css/toastr.min.css"> <%-- 토스트 메시지 라이브러리 --%>
+    <link rel="icon" href="/anitomo/resources/favicon.ico">
 </head>
 <body>
     <c:import url="header.jsp"></c:import>
@@ -65,7 +65,7 @@
                     <div class="totalPriceArea">
                         <span id="totalPriceText">총구매금액</span>
                         <span id="totalPrice">${item.itemPrice}</span>원
-                        <form action="/order" method="get" id="orderForm" hidden="hidden">
+                        <form action="/anitomo/order" method="get" id="orderForm" hidden="hidden">
                             <input type="text" id="orderQuantity" name="itemQuantityList">
                             <input type="text" value="${item.itemCode}" name="itemCodeList">
                         </form>
@@ -173,7 +173,7 @@
                 <span>상품문의</span>
                 <button id="modalCloseBtn">X</button>
             </div>
-            <form action="/inquiry" id="inquiryForm" method="post">
+            <form action="/anitomo/inquiry" id="inquiryForm" method="post">
                 <div class="modal-content">
                     <input type="text" id="itemCode" value="${item.itemCode}" name="inquiryItemCode" hidden="hidden">
                     <div class="inquiryTitleInputArea">
@@ -200,7 +200,7 @@
     <c:import url="footer.jsp"></c:import>
 
     <%--스크립트 영역--%>
-    <script src="/resources/js/toastr.min.js"></script> <%-- 토스트메시지 라이브러리 --%>
+    <script src="/anitomo/resources/js/toastr.min.js"></script> <%-- 토스트메시지 라이브러리 --%>
     <script>
         $(document).ready(function () {
             // 각 영역 네비게이션 제목에 색 칠해주기
@@ -315,7 +315,7 @@
                 //장바구니 추가 ajax
                 $.ajax({
                     type : "POST"
-                    , url : "/cart"
+                    , url : "/anitomo/cart"
                     , contentType : "application/json"
                     // , dataType :  "json"
                     , data : JSON.stringify(cartData)
@@ -344,7 +344,7 @@
             function showInquiryList() {
                 $.ajax({
                     type: "POST"
-                    , url: "/inquiry/list"
+                    , url: "/anitomo/inquiry/list"
                     , contentType : "text/plain"
                     , data : $("#itemCode").val()
                     , success: function (inquiryMap) {

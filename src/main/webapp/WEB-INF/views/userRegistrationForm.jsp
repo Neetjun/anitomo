@@ -3,9 +3,9 @@
 <html>
 <head>
     <title>회원가입</title>
-    <link rel="stylesheet" href="/resources/css/userRegistrationForm.css">
+    <link rel="stylesheet" href="/anitomo/resources/css/userRegistrationForm.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="icon" href="/resources/favicon.ico">
+    <link rel="icon" href="/anitomo/resources/favicon.ico">
 </head>
 <body>
     <c:import url="header.jsp" charEncoding="utf-8"></c:import>
@@ -15,7 +15,7 @@
             <i class="fa-solid fa-user"></i>
             <span>회원가입</span>
         </div>
-        <form action="/user" method="post" id="registrationForm">
+        <form action="/anitomo/user" method="post" id="registrationForm">
             <div class="inputArea">
                 <div class="inputId">
                     <div>아이디</div>
@@ -62,7 +62,7 @@
     <script>
         $(document).ready(function () {
             $("#cancelBtn").click(function () {
-                window.location.href = "/";
+                window.location.href = "/anitomo/";
             });
 
             $("#submitBtn").click(function () {
@@ -146,7 +146,7 @@
 
             $("#idCheckBtn").click(function () {
                $.ajax({
-                   url : "/user/idcheck"
+                   url : "/anitomo/user/idcheck"
                    , type : "GET"
                    , data : {"userId" : $("#userId").val()}
                    , contentType : "application/json"
@@ -183,7 +183,7 @@
                 if($("#userPw").val() != "")
                 {
                     $.ajax({
-                        url: "/user/pwcheck"
+                        url: "/anitomo/user/pwcheck"
                         , type: "GET"
                         , data: {"userPw": $("#userPw").val()}
                         , contentType: "application/json"

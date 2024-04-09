@@ -3,8 +3,8 @@
 <html>
 <head>
     <title>주문완료</title>
-    <link rel="stylesheet" href="/resources/css/orderResult.css">
-    <link rel="icon" href="/resources/favicon.ico">
+    <link rel="stylesheet" href="/anitomo/resources/css/orderResult.css">
+    <link rel="icon" href="/anitomo/resources/favicon.ico">
 </head>
 <body>
 <c:import url="header.jsp" charEncoding="utf-8"></c:import>
@@ -28,9 +28,9 @@
     $(document).ready(function () {
         $(".resultBtnArea > button").click(function () {
             if($(this).attr("id") == "toMainBtn")
-                window.location.href = "/";
+                window.location.href = "/anitomo/";
             else
-                window.location.href = "/user/mypage/orderlist";
+                window.location.href = "/anitomo/user/mypage/orderlist";
         })
     })
 </script>

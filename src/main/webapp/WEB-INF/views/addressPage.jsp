@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>배송지 관리</title>
-    <link rel="stylesheet" href="/resources/css/address.css">
+    <link rel="stylesheet" href="/anitomo/resources/css/address.css">
 </head>
 <body>
     <div class="addressListArea">
@@ -39,16 +39,16 @@
         $(document).ready(function () {
 
             $("#addressAddBtn").click(function () {
-                window.location.href = "/user/address?order=${order}&mode=new";
+                window.location.href = "/anitomo/user/address?order=${order}&mode=new";
             });
             $(".addressInfoChangeBtn").click(function () {
-                window.location.href = "/user/address?order=${order}&mode=update&addressCode="+$(this).val();
+                window.location.href = "/anitomo/user/address?order=${order}&mode=update&addressCode="+$(this).val();
             });
             $(".addressDeleteBtn").click(function () {
 
                 if(confirm("배송지를 삭제하시겠습니까?"))
                 {
-                    let action = "/user/address?order=${order}&mode=delete&addressCode="+$(this).val();
+                    let action = "/anitomo/user/address?order=${order}&mode=delete&addressCode="+$(this).val();
                     let form = $(this).parent(".addressDeleteForm");
                     form.attr("action",action);
                     form.submit();

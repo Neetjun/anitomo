@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>마이페이지</title>
-    <link rel="stylesheet" href="/resources/css/mypageCommon.css">
+    <link rel="stylesheet" href="/anitomo/resources/css/mypageCommon.css">
 </head>
 <body>
 
@@ -16,11 +16,11 @@
         </div>
         <div class="sidebarMenuList">
             <ul class="sidebarMenu">
-                <li class="userMenu"><a href="/user/mypage/orderlist">주문내역</a></li>
-                <li class="userMenu"><a href="/user/mypage/reviewlist">리뷰관리</a></li>
-                <li class="userMenu"><a href="/user/mypage/inquirylist">문의관리</a></li>
-                <li class="userMenu"><a href="/user/mypage/paymentmethod">결제수단관리</a></li>
-                <li class="userMenu"><a href="/user/mypage/userinfo">개인정보변경</a></li>
+                <li class="userMenu"><a href="/anitomo/user/mypage/orderlist">주문내역</a></li>
+                <li class="userMenu"><a href="/anitomo/user/mypage/reviewlist">리뷰관리</a></li>
+                <li class="userMenu"><a href="/anitomo/user/mypage/inquirylist">문의관리</a></li>
+                <li class="userMenu"><a href="/anitomo/user/mypage/paymentmethod">결제수단관리</a></li>
+                <li class="userMenu"><a href="/anitomo/user/mypage/userinfo">개인정보변경</a></li>
             </ul>
         </div>
     </div>

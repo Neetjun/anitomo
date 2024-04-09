@@ -3,8 +3,8 @@
 <html>
 <head>
     <title>상품목록</title>
-    <link rel="stylesheet" href="/resources/css/itemList.css">
-    <link rel="icon" href="/resources/favicon.ico">
+    <link rel="stylesheet" href="/anitomo/resources/css/itemList.css">
+    <link rel="icon" href="/anitomo/resources/favicon.ico">
 </head>
 <body>
     <c:import url="header.jsp"></c:import>
@@ -15,7 +15,7 @@
         </div>
         <div class="itemList">
             <div class="searchArea">
-                <form action="/item/list" method="get" id="itemSearchForm">
+                <form action="/anitomo/item/list" method="get" id="itemSearchForm">
                     <c:if test="${param.listType ne 'newest'}">
                         <input type="text" name="listType" value="${param.listType}" hidden="hidden">
                         <c:if test="${param.listType eq 'mainSearch' || param.listType eq 'series'}">
@@ -156,7 +156,7 @@
             })
 
             $(".item").click(function () {
-                window.location.href = "/item/"+$(this).data("itemcode");
+                window.location.href = "/anitomo/item/"+$(this).data("itemcode");
             });
 
             $(".sortBtn").click(function () {

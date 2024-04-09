@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="/resources/css/mypageOrderList.css">
+    <link rel="stylesheet" href="/anitomo/resources/css/mypageOrderList.css">
 </head>
 <body>
 
@@ -43,7 +43,11 @@
                                                         <div class='itemInfo'>
                                                             <div class='thumbnailArea'>
                                                                 <div class='thumbnailBox'>
-                                                                    <img src='/resources/img/tmpItemImage.jpg' alt='' class='thumbnail'>
+                                                                    <c:forEach var="thumbnail" items="${thumbnailList}">
+                                                                        <c:if test="${thumbnail.code eq orderDetail.itemCode}">
+                                                                            <img src='${thumbnail.url}' alt='' class='thumbnail'>
+                                                                        </c:if>
+                                                                    </c:forEach>
                                                                 </div>
                                                             </div>
                                                             <div class='itemNameAndPrice'>
@@ -96,15 +100,15 @@
                 $("#orderListForm").attr("method","post");
 
                 if(requestType == "삭제하기")
-                    $("#orderListForm").attr("action","/user/orderlist?mode=delete");
+                    $("#orderListForm").attr("action","/anitomo/user/orderlist?mode=delete");
                 else if(requestType == "주문취소")
-                    $("#orderListForm").attr("action","/user/orderlist?mode=cancel");
+                    $("#orderListForm").attr("action","/anitomo/user/orderlist?mode=cancel");
                 else if(requestType == "교환/환불")
-                    $("#orderListForm").attr("action","/user/orderlist?mode=refund");
+                    $("#orderListForm").attr("action","/anitomo/user/orderlist?mode=refund");
                 else
                 {
                     $("#orderListForm").attr("method","get");
-                    $("#orderListForm").attr("action","/user/mypage/orderdetail");
+                    $("#orderListForm").attr("action","/anitomo/user/mypage/orderdetail");
                 }
 
                 $("#orderCodeInput").val(orderCode);

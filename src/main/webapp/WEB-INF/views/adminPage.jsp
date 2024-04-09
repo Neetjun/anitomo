@@ -3,7 +3,7 @@
 <html id="adminPageHtml">
 <head>
     <title>운영자메뉴</title>
-    <link rel="stylesheet" href="/resources/css/adminCommon.css">
+    <link rel="stylesheet" href="/anitomo/resources/css/adminCommon.css">
 </head>
 <body id="adminPageBody">
 

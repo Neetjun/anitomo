@@ -2,14 +2,17 @@ package com.anitomo.controller;
 
 
 import com.anitomo.dto.CartDTO;
+import com.anitomo.dto.ImageDTO;
 import com.anitomo.dto.UserDTO;
 import com.anitomo.service.CartService;
+import com.anitomo.service.ItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -19,9 +22,11 @@ public class CartController
 {
 
     private CartService cartService;
+    private ItemService itemService;
 
-    public CartController(CartService cartService)
+    public CartController(CartService cartService, ItemService itemService)
     {
+        this.itemService = itemService;
         this.cartService = cartService;
     }
 
@@ -48,12 +53,17 @@ public class CartController
 
     @GetMapping("list")
     @ResponseBody
-    public List<CartDTO> getCartList(HttpSession session)
+    public HashMap<String,Object> getCartMap(HttpSession session)
     {
         UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
         List<CartDTO> cartList = cartService.getCartList(loginUser);
+        List<ImageDTO> thumbnailList = itemService.getThumbnailList();
 
-        return cartList;
+        HashMap<String,Object> cartMap = new HashMap<>();
+        cartMap.put("cartList",cartList);
+        cartMap.put("thumbnailList",thumbnailList);
+
+        return cartMap;
     }
 
     @PostMapping

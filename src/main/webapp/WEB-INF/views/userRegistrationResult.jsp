@@ -3,8 +3,8 @@
 <html>
 <head>
     <title>환영해요</title>
-    <link rel="stylesheet" href="/resources/css/userRegistrationResult.css">
-    <link rel="icon" href="/resources/favicon.ico">
+    <link rel="stylesheet" href="/anitomo/resources/css/userRegistrationResult.css">
+    <link rel="icon" href="/anitomo/resources/favicon.ico">
 </head>
 <body>
     <c:import url="header.jsp" charEncoding="utf-8"></c:import>
@@ -27,10 +27,9 @@
     <script>
         $(document).ready(function () {
             $(".resultBtnArea > button").click(function () {
-                    window.location.href = "/";
+                    window.location.href = "/anitomo/";
             })
         })
     </script>
-
 </body>
 </html>

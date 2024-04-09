@@ -3,14 +3,14 @@
 <html>
 <head>
     <title>배송지 관리</title>
-    <link rel="stylesheet" href="/resources/css/addressEditForm.css">
+    <link rel="stylesheet" href="/anitomo/resources/css/addressEditForm.css">
 </head>
 <body>
     <div class="addressEditForm">
         <div class="menuTitle">
             <span>${mode == 'new' ? '배송지 등록' : '배송지 변경'}</span>
         </div>
-        <form action="/user/address?mode=${mode}&order=${order}" method="post" id="addressForm">
+        <form action="/anitomo/user/address?mode=${mode}&order=${order}" method="post" id="addressForm">
             <table id="addressEditTable">
                 <tr>
                     <th><i class="fa-solid fa-user"></i></th>
@@ -69,7 +69,7 @@
 
             $(".addressEditBtn > button").click(function () {
                 if($(this).attr("id") == "cancelBtn")
-                    window.location.href = "/user/mypage/address?order=${order}";
+                    window.location.href = "/anitomo/user/mypage/address?order=${order}";
                 else
                 {
                     if($("#defaultCheck").prop("checked"))
